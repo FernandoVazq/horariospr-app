@@ -316,6 +316,18 @@
   @keyframes sube { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
   @keyframes flota { from { transform: rotate(-28deg) translate(0, 0); } to { transform: rotate(-20deg) translate(14px, -18px); } }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
+
+  /* El video de un minuto: de fondo (sin sonido, en bucle) cuando se ve; "Verlo con música" lo empieza con sonido */
+  .vid { position: relative; background: #0b2a23; color: #fff; overflow: hidden; }
+  .vid .wrap { display: grid; gap: 20px; }
+  @media (min-width: 960px) { .vid .wrap { grid-template-columns: minmax(0, 5fr) minmax(0, 8fr); align-items: center; gap: 40px; } }
+  .vid h2 { color: #fff; } .vid .sub { color: #cfe5dd; } .vid .kicker { color: #f3c64f; }
+  .marco { position: relative; border-radius: 18px; overflow: hidden; background: #0f3b31; box-shadow: 0 30px 60px -24px rgba(0, 0, 0, .7), 0 0 0 1px rgba(255, 255, 255, .08); aspect-ratio: 16 / 9; }
+  .marco video { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .sonido { position: absolute; right: 14px; top: 14px; display: inline-flex; align-items: center; gap: 8px; min-height: 42px; padding: 0 16px; border: 0; border-radius: 999px; background: #f3c64f; color: #15302a; font: inherit; font-weight: 800; font-size: 15px; cursor: pointer; box-shadow: 0 8px 20px -8px rgba(0, 0, 0, .6); }
+  .sonido:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+  .sonido svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .marco.con-sonido .sonido { display: none; }
 </style>
 </head>
 <body>
@@ -342,8 +354,8 @@
   <div class="wrap">
     <div>
       <span class="eyebrow">Horarios de turnos · Puerto Rico</span>
-      <h1 id="h-hero">El horario de tu negocio, armado y <em>revisado con tus reglas.</em></h1>
-      <p class="lead">Te lo dejamos montado, tú lo manejas y cada empleado lo ve en su teléfono.</p>
+      <h1 id="h-hero">El horario de <em>tu negocio</em>, armado y revisado con tus reglas.</h1>
+      <p class="lead">Crea tu horario ideal en segundos. Nosotros configuramos tu local y tú lo apruebas.</p>
       <div class="ctas">
         <a class="btn btn-sun tel-hero" href="movil.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>Mi horario en el teléfono</a>
         <a class="btn btn-sun entrar-hero" href="#entrar">Entrar<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
@@ -356,15 +368,6 @@
         <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Lo cambias cuando quieras</li>
         <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Lo publicas cuando tú digas</li>
       </ul>
-      <!-- VIDEO (apagado; se activa cuando haya un video corto de la app). El .mp4 y el póster van en public-movil/
-           (vite los copia a dist-movil y scripts/sitio.mjs a la raíz del sitio). Solo datos de ejemplo en el video. Para activarlo, quita este comentario:
-      <figure class="video">
-        <video controls muted playsinline preload="none" poster="video-portada.jpg" width="1280" height="720" aria-describedby="video-txt">
-          <source src="video-portada.mp4" type="video/mp4">
-        </video>
-        <figcaption id="video-txt" class="sr">Video corto de HorariosPR con la Farmacia del Ejemplo: armar el mes, revisar y publicar.</figcaption>
-      </figure>
-      -->
     </div>
 
     <figure class="shot">
@@ -408,6 +411,25 @@
     </figure>
   </div>
 </section>
+
+<section class="s vid" id="video" aria-labelledby="h-vid">
+  <div class="wrap">
+    <div class="rv">
+      <span class="kicker">En un minuto</span>
+      <h2 id="h-vid">Mira cómo se arma un mes.</h2>
+      <p class="sub">Un mes con problemas, unos clics en Crear horario y queda cumpliendo tus reglas.</p>
+    </div>
+    <div class="marco" id="marco">
+      <video id="vid" muted loop playsinline preload="none" poster="media/horariospr-poster.jpg" width="1280" height="720" aria-describedby="vid-txt">
+        <source src="media/horariospr.webm" type="video/webm">
+        <source src="media/horariospr.mp4" type="video/mp4">
+      </video>
+      <button type="button" class="sonido" id="sonido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg>Verlo con música</button>
+      <p id="vid-txt" class="sr">Video de un minuto con la Farmacia del Ejemplo (datos inventados): el mes con problemas marcados, Crear horario, la vista previa y el mes cumpliendo las 15 reglas; las horas de cada persona y la pantalla de Reglas.</p>
+    </div>
+  </div>
+</section>
+
 
 <section class="s" id="beneficios" aria-labelledby="h-ben">
   <div class="wrap">
@@ -665,6 +687,26 @@
     raiz.classList.remove('anim');
   }
 })();
+
+  // El video: sin sonido y en bucle mientras se ve (no gasta datos hasta que llegas a él; con "reducir movimiento" no
+  // arranca solo). "Verlo con música" lo empieza desde el principio, con sonido y controles.
+  (function () {
+    var v = document.getElementById('vid'), b = document.getElementById('sonido'), m = document.getElementById('marco');
+    if (!v || !b) return;
+    var quieto = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    b.addEventListener('click', function () {
+      m.classList.add('con-sonido');
+      v.muted = false; v.loop = false; v.controls = true; v.currentTime = 0;
+      var p = v.play(); if (p && p.catch) p.catch(function () {});
+    });
+    if (quieto || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (m.classList.contains('con-sonido')) return;
+        if (e.isIntersecting) { v.preload = 'auto'; var p = v.play(); if (p && p.catch) p.catch(function () {}); } else v.pause();
+      });
+    }, { threshold: 0.35 }).observe(v);
+  })();
 </script>
 </body>
 </html>
