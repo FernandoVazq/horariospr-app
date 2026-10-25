@@ -7,18 +7,18 @@
    - version.json (la versión mínima, "Actualiza HorariosPR"): siempre de la red, nunca guardado.
    - Avisos (web push, Orden 9): muestra el aviso que manda supabase/functions/avisar y, al tocarlo, abre la app.
    Solo funciona hospedado (https o localhost). Abriendo el archivo con doble clic (file://) no hay service worker. */
-const VERSION = '2.0.0-beta.1-a1e1d1dfb2';
+const VERSION = '2.0.0-beta.1-53b5c35bf7';
 const ARCHIVOS = [
   "./assets/MovilNube-BWbMzsry.css",
-  "./assets/MovilNube-BgXNcoMp.js",
+  "./assets/MovilNube-jzXKteRV.js",
   "./assets/atkinson-hyperlegible-next-latin-wght-normal-BcXVPD7q.woff2",
-  "./assets/borrar-CBBiqWOZ.js",
-  "./assets/index-C5foZuDw.js",
+  "./assets/borrar-CGWZjPt2.js",
   "./assets/index-C7nSr84o.js",
+  "./assets/index-gbm4XGZw.js",
   "./assets/index-jyOAJ8Vv.js",
-  "./assets/movil-BOt2PExK.js",
-  "./assets/movil-Dk9X8LRE.css",
-  "./assets/supabase-CNdZPLY4.js",
+  "./assets/movil-9Z4kZ5JR.js",
+  "./assets/movil-ztWJ4e4M.css",
+  "./assets/supabase-e8O8I6Ct.js",
   "./assets/web-Dk6qAqBp.js",
   "./iconos/apple-touch-icon.png",
   "./iconos/icono-192.png",
