@@ -63,10 +63,14 @@ self.addEventListener('fetch', (e) => {
   if (req.mode === 'navigate') {
     // solo las páginas del teléfono; cualquier otra navegación va directo a la red
     if (relativa === null || !['', 'movil.html', 'index.html'].includes(relativa)) return;
+    // Solo movil.html se guarda como la página del teléfono. En GitHub Pages la raíz ('' o index.html) es la
+    // portada del sitio: si se guardara, sin conexión el teléfono abriría la portada en vez de "Mi horario".
+    // Sin red, la raíz también abre el teléfono guardado.
+    const esTelefono = relativa === 'movil.html';
     e.respondWith(
       fetch(req)
         .then((r) => {
-          if (r.ok) { const copia = r.clone(); caches.open(APP).then((c) => c.put(PAGINA, copia)); }
+          if (r.ok && esTelefono) { const copia = r.clone(); caches.open(APP).then((c) => c.put(PAGINA, copia)); }
           return r;
         })
         .catch(() => caches.match(PAGINA, { ignoreSearch: true })),

@@ -1,48 +1,368 @@
 <!doctype html>
-<!-- La portada del sitio (dist-sitio/index.html). La copia scripts/sitio.mjs; sin --con-escritorio quita las líneas con data-escritorio. -->
+<!-- La portada del sitio (dist-sitio/index.html). La copia scripts/sitio.mjs; sin --con-escritorio quita cada línea que lleve la marca de escritorio. -->
+<!-- Por eso cada enlace a escritorio/ va entero en UNA línea, y la página se ve bien sin ellos. Nada se carga de fuera (GitHub Pages, sin cabeceras). -->
+<!-- Todos los nombres del dibujo son inventados (Farmacia del Ejemplo, Empleado A…F). Nunca datos de clientes. -->
 <html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HorariosPR</title>
+<title>HorariosPR · Horarios de turnos para tu negocio</title>
+<meta name="description" content="HorariosPR arma el horario de turnos de tu negocio, lo valida con tus reglas y lo pone en el teléfono de cada empleado. Para farmacias, dispensarios y negocios con turnos en Puerto Rico.">
+<meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0f6b57">
 <link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cg transform='rotate(-28 16 16)'%3E%3CclipPath id='c'%3E%3Crect x='3' y='10' width='26' height='13' rx='6.5'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23c)'%3E%3Crect x='3' y='10' width='13' height='13' fill='%230f6b57'/%3E%3Crect x='16' y='10' width='13' height='13' fill='%23f3c64f'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E">
 <style>
-  :root { --paper: #eef3f1; --card: #fff; --ink: #15302a; --muted: #557069; --green: #0f6b57; --yellow: #f3c64f; --line: #d3e0dc; }
-  @media (prefers-color-scheme: dark) { :root { --paper: #0f1a17; --card: #16241f; --ink: #e3eeea; --muted: #9db3ac; --green: #4fbf9f; --line: #2a3d37; color-scheme: dark; } }
+  :root {
+    --paper: #eef3f1; --card: #fff; --sunk: #f6f9f8; --ink: #15302a; --ink-2: #44605a; --muted: #557069;
+    --line: #d3e0dc; --line-2: #e6eeeb; --green: #0f6b57; --green-2: #0b4a3d; --green-soft: #dcefe8; --green-text: #0f6b57;
+    --yellow: #f3c64f; --yellow-2: #e2ad2a; --on-green: #fff; --focus: #0b4a3d;
+    --hero-a: #127a63; --hero-b: #0f6b57; --hero-c: #083f33;
+    --shadow: 0 1px 0 rgba(21, 48, 42, .06), 0 18px 40px -22px rgba(21, 48, 42, .35);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0c1715; --card: #13221e; --sunk: #101d1a; --ink: #e5efec; --ink-2: #b4c7c1; --muted: #9db3ac;
+      --line: #25393a; --line-2: #1c2e2a; --green: #3fae92; --green-2: #2c8a73; --green-soft: #173a31; --green-text: #6fd0b5;
+      --on-green: #06241d; --focus: #f3c64f;
+      --hero-a: #0f5c4b; --hero-b: #0b4a3d; --hero-c: #062a23;
+      --shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 18px 40px -22px rgba(0, 0, 0, .8);
+      color-scheme: dark;
+    }
+  }
   * { box-sizing: border-box; }
-  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--paper); color: var(--ink);
-    font-family: "Segoe UI", system-ui, -apple-system, sans-serif; padding: 24px 16px; }
-  main { width: 100%; max-width: 420px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 28px 24px; display: grid; gap: 16px; }
-  .brand { display: flex; align-items: center; gap: 12px; font-weight: 750; font-size: 1.4rem; letter-spacing: -0.03em; }
-  .cap { width: 34px; height: 18px; border-radius: 9px; transform: rotate(-28deg); overflow: hidden; display: flex; }
-  .cap i { flex: 1; } .cap i:first-child { background: var(--green); } .cap i:last-child { background: var(--yellow); }
-  p { margin: 0; color: var(--muted); line-height: 1.5; }
-  a.btn { display: block; text-align: center; text-decoration: none; font-weight: 700; padding: 14px; border-radius: 12px; border: 1px solid var(--line); color: var(--ink); background: var(--paper); }
-  a.btn.main { background: var(--green); border-color: var(--green); color: #fff; }
-  a.btn:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
-  a.btn.demo { display: flex; align-items: center; gap: 12px; text-align: left; padding: 14px 16px; border: 2px solid var(--green); color: var(--green); background: var(--card); }
-  a.btn.demo svg { flex: none; width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  a.btn.demo b { display: block; font-size: 1.1rem; }
-  a.btn.demo span span { display: block; font-weight: 400; color: var(--muted); font-size: 0.9rem; }
-  small { color: var(--muted); }
-  .contacto { font-size: 0.85rem; color: var(--muted); }
-  .contacto a { color: var(--green); font-weight: 700; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.5 "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif; overflow-x: hidden; }
+  h1, h2, h3 { margin: 0; line-height: 1.1; letter-spacing: -.02em; text-wrap: balance; }
+  p { margin: 0; }
+  a { color: var(--green-text); }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+  .hero :focus-visible { outline-color: var(--yellow); }
+  .wrap { width: 100%; max-width: 1140px; margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 720px) { .wrap { padding: 0 28px; } }
+  .skip { position: absolute; left: 16px; top: -60px; z-index: 50; background: var(--yellow); color: #15302a; padding: 10px 14px; border-radius: 10px; font-weight: 700; text-decoration: none; }
+  .skip:focus { top: 12px; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  svg.i { flex: none; width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  section[id] { scroll-margin-top: 72px; }
+
+  /* Marca: la cápsula verde y amarilla */
+  .brand { display: inline-flex; align-items: center; gap: 11px; color: inherit; text-decoration: none; font-weight: 780; font-size: 21px; letter-spacing: -.03em; }
+  .logo { display: inline-flex; flex: none; width: 34px; height: 18px; border-radius: 999px; overflow: hidden; transform: rotate(-28deg); box-shadow: inset 0 0 0 1.5px rgba(0, 0, 0, .08); }
+  .logo i { flex: 1; } .logo i:first-child { background: #0f6b57; } .logo i:last-child { background: #f3c64f; }
+
+  /* Botones */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 999px; font-weight: 750; font-size: 16.5px; text-decoration: none; white-space: nowrap; transition: transform .15s, background .15s; }
+  .btn-sun { background: var(--yellow); color: #15302a; box-shadow: 0 2px 0 var(--yellow-2), 0 14px 24px -12px rgba(0, 0, 0, .45); }
+  .btn-sun:hover { background: #f6d06a; transform: translateY(-1px); }
+  .btn-ghost { color: #fff; box-shadow: inset 0 0 0 2px currentColor; }
+  .btn-ghost:hover { background: rgba(255, 255, 255, .1); }
+  .btn-green { background: var(--green); color: var(--on-green); }
+  .btn-green:hover { background: var(--green-2); }
+
+  /* Cabecera */
+  .top { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--paper) 90%, transparent); -webkit-backdrop-filter: saturate(1.4) blur(10px); backdrop-filter: saturate(1.4) blur(10px); border-bottom: 1px solid var(--line); }
+  .top .wrap { display: flex; align-items: center; gap: 12px; min-height: 64px; }
+  .nav { display: none; gap: 4px; margin-left: auto; }
+  .nav a { color: var(--ink-2); text-decoration: none; font-weight: 650; font-size: 15.5px; padding: 8px 12px; border-radius: 999px; }
+  .nav a:hover { color: var(--ink); background: var(--line-2); }
+  .top .btn { margin-left: auto; min-height: 42px; padding: 0 18px; font-size: 15.5px; }
+  @media (min-width: 900px) { .nav { display: flex; } .nav + .btn { margin-left: 8px; } }
+
+  /* Héroe */
+  .hero { position: relative; overflow: hidden; color: #fff; background: radial-gradient(120% 90% at 85% 0%, var(--hero-a) 0%, var(--hero-b) 45%, var(--hero-c) 100%); }
+  .hero::before, .hero::after { content: ""; position: absolute; border-radius: 999px; transform: rotate(-28deg); pointer-events: none; background: linear-gradient(90deg, #14866b 0 50%, #f3c64f 50% 100%); }
+  .hero::before { width: 320px; height: 128px; right: -130px; bottom: -40px; opacity: .2; }
+  .hero::after { width: 150px; height: 60px; left: -70px; top: 60px; opacity: .14; }
+  .hero > .wrap { position: relative; z-index: 1; display: grid; gap: 40px; padding-top: 40px; padding-bottom: 64px; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 13px; border-radius: 999px; background: rgba(255, 255, 255, .14); font-size: 14.5px; font-weight: 700; }
+  .eyebrow::before { content: ""; width: 9px; height: 9px; border-radius: 99px; background: var(--yellow); }
+  .hero h1 { margin-top: 16px; font-size: clamp(34px, 8.6vw, 54px); font-weight: 800; letter-spacing: -.03em; line-height: 1.02; }
+  .hero h1 em { font-style: normal; color: var(--yellow); }
+  .lead { margin-top: 18px; font-size: clamp(17.5px, 2.3vw, 20px); color: #d9efe7; max-width: 38ch; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+  .ctas .btn { flex: 1 1 auto; }
+  .tel-hero { display: none; }
+  /* Con la demostración, sobra "Cómo funciona" en el héroe (está arriba en el menú); sin ella, se ve */
+  #demo-hero + .como { display: none; }
+  .fine { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 22px 0 0; padding: 0; list-style: none; font-size: 15px; color: #d9efe7; }
+  .fine li { display: inline-flex; align-items: center; gap: 7px; }
+  .fine svg.i { width: 18px; height: 18px; color: var(--yellow); stroke-width: 2.6; }
+  @media (min-width: 560px) { .ctas .btn { flex: 0 0 auto; } }
+  /* En el teléfono, lo primero: "Mi horario" */
+  @media (max-width: 699px) { .tel-hero { display: inline-flex; flex-basis: 100%; min-height: 56px; font-size: 18px; } .entrar-hero { display: none; } }
+  @media (min-width: 960px) { .hero > .wrap { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 48px; padding-top: 72px; padding-bottom: 92px; } }
+
+  /* Dibujo del horario (hecho con HTML y CSS; todo inventado) */
+  .shot { margin: 0; position: relative; }
+  .tray { padding: 12px; border-radius: 22px; background: #fff; color: #15302a; box-shadow: 0 6px 0 #c9d8d3, 0 12px 0 rgba(0, 0, 0, .12), 0 50px 60px -20px rgba(0, 0, 0, .55); }
+  .tray-h { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 10px; padding: 2px 4px 10px; font-size: 13px; color: #44605a; font-weight: 700; }
+  .tray-h b { color: #15302a; font-size: 15px; }
+  .days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; }
+  .day { display: grid; grid-template-rows: auto 1fr 1fr; gap: 4px; min-width: 0; }
+  .dn { text-align: center; font-size: 11.5px; font-weight: 750; color: #44605a; line-height: 1.15; }
+  .dn span { display: block; font-size: 14.5px; color: #15302a; }
+  .cell { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; min-height: 56px; padding: 6px 3px; border-radius: 10px; box-shadow: inset 0 4px 7px rgba(21, 48, 42, .14), inset 0 -2px 0 rgba(255, 255, 255, .9); }
+  .am { background: #f6f3e2; } .pm { background: #e2eaf3; }
+  .off { background: repeating-linear-gradient(-45deg, #e6ece9 0 5px, #f4f7f6 5px 10px); font-size: 10.5px; color: #4f655e; font-weight: 700; }
+  .cp { display: flex; align-items: center; width: 100%; max-width: 54px; height: 19px; padding-left: 5px; border-radius: 999px; background: linear-gradient(90deg, var(--c) 0 52%, var(--t) 52%); color: #fff; font-size: 11px; font-weight: 800; box-shadow: 0 3px 5px -2px rgba(0, 0, 0, .35); }
+  .A { --c: #1e7a5f; --t: #dcf0e7; } .B { --c: #3466c2; --t: #e2e9fa; } .C { --c: #8a4fbf; --t: #f0e5fa; }
+  .D { --c: #56751a; --t: #e9f0d6; } .E { --c: #c23e77; --t: #fadfeb; } .F { --c: #b85c0f; --t: #fce8d4; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 14px; padding: 10px 4px 0; font-size: 12px; color: #44605a; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { width: 11px; height: 11px; border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .1); }
+  .below { display: flex; align-items: flex-start; gap: 12px; margin-top: -14px; padding: 0 8px; position: relative; }
+  .ok { flex: 1; min-width: 0; padding: 12px 14px; border-radius: 16px; background: #fff; color: #15302a; font-size: 13.5px; line-height: 1.3; border-left: 5px solid #1e7a5f; box-shadow: 0 2px 0 #c9d8d3, 0 22px 30px -12px rgba(0, 0, 0, .5); }
+  .ok b { display: block; margin-bottom: 5px; font-size: 14px; }
+  .ok ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 3px; }
+  .ok li { display: flex; align-items: center; gap: 6px; }
+  .ok svg { flex: none; width: 15px; height: 15px; fill: none; stroke: #1e7a5f; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  .phone { flex: none; width: 138px; padding: 7px; border-radius: 24px; background: #15302a; box-shadow: 0 24px 34px -14px rgba(0, 0, 0, .6); }
+  .screen { border-radius: 18px; overflow: hidden; background: #eef3f1; color: #15302a; font-size: 10.5px; line-height: 1.25; }
+  .scr-h { padding: 12px 9px 8px; background: #0f6b57; color: #fff; }
+  .scr-h b { display: block; font-size: 12.5px; }
+  .scr-h span { color: #d9efe7; }
+  .turnos { display: grid; gap: 4px; padding: 7px; }
+  .turno { display: grid; grid-template-columns: auto 1fr; gap: 0 6px; padding: 5px 6px; border-radius: 8px; background: #fff; }
+  .turno b { grid-row: span 2; display: grid; place-items: center; min-width: 26px; font-size: 10px; color: #0f6b57; line-height: 1.1; text-align: center; }
+  .turno small { color: #44605a; font-size: 9.5px; }
+  .tot { padding: 2px 9px 9px; font-weight: 700; color: #0f6b57; }
+  @media (max-width: 400px) { .tray { padding: 10px 8px; } .days { gap: 4px; } .cp { padding-left: 4px; font-size: 10.5px; } .phone { width: 124px; } .ok { padding: 10px 11px; font-size: 12.5px; } }
+
+  /* Secciones */
+  .s { padding: 64px 0; }
+  .s.alt { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  @media (min-width: 960px) { .s { padding: 92px 0; } }
+  .kicker { display: inline-block; margin-bottom: 10px; font-size: 15px; font-weight: 750; color: var(--green-text); }
+  .s h2 { font-size: clamp(29px, 5.6vw, 44px); font-weight: 800; letter-spacing: -.028em; max-width: 24ch; }
+  .sub { margin-top: 14px; font-size: 18.5px; color: var(--ink-2); max-width: 60ch; }
+  .grid { display: grid; gap: 16px; margin-top: 34px; }
+  @media (min-width: 640px) { .grid.g4, .grid.g3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1000px) { .grid.g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } .grid.g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .card { padding: 24px 22px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); }
+  .s.alt .card { background: var(--paper); }
+  .card h3 { font-size: 20px; font-weight: 780; }
+  .card p { margin-top: 8px; color: var(--ink-2); font-size: 16.5px; }
+  .ic { display: grid; place-items: center; width: 48px; height: 48px; margin-bottom: 16px; border-radius: 14px; background: var(--green-soft); color: var(--green-text); }
+
+  /* Pasos */
+  .steps { counter-reset: paso; }
+  .num { display: inline-flex; width: 56px; height: 28px; margin-bottom: 16px; border-radius: 999px; overflow: hidden; font-weight: 800; font-size: 15px; transform: rotate(-12deg); }
+  .num b { flex: 1; display: grid; place-items: center; background: #0f6b57; color: #fff; }
+  .num i { flex: 1; background: #f3c64f; }
+
+  /* Para quién */
+  .who .card { display: flex; gap: 16px; align-items: flex-start; }
+  .who .ic { margin: 0; flex: none; }
+  .aside { margin-top: 20px; color: var(--ink-2); font-size: 16px; }
+
+  /* Entrar */
+  .entrar { background: radial-gradient(120% 120% at 0% 0%, color-mix(in srgb, var(--green) 12%, var(--card)) 0%, var(--card) 60%); }
+  .doors { display: flex; flex-wrap: wrap; gap: 14px; max-width: 960px; margin-top: 30px; }
+  .door { flex: 1 1 100%; }
+  @media (min-width: 760px) { .door { flex-basis: 320px; } .door.demo { flex-basis: 100%; } }
+  .door { display: flex; align-items: center; gap: 16px; min-height: 92px; padding: 20px 22px; border-radius: 20px; text-decoration: none; color: var(--ink); background: var(--paper); border: 2px solid var(--line); box-shadow: var(--shadow); transition: transform .15s, border-color .15s; }
+  .door:hover { transform: translateY(-2px); border-color: var(--green); }
+  .door .ic { margin: 0; flex: none; width: 52px; height: 52px; }
+  .door b { display: block; font-size: 19px; line-height: 1.2; }
+  .door span span { display: block; margin-top: 3px; color: var(--muted); font-size: 15.5px; }
+  .door .go { margin-left: auto; }
+  .door.main { min-height: 116px; background: var(--green); border-color: var(--green); color: var(--on-green); }
+  .door.main b { font-size: 22px; }
+  .door.main span span { color: inherit; opacity: .9; }
+  .door.main .ic { background: rgba(255, 255, 255, .16); color: inherit; }
+  .door.main:hover { background: var(--green-2); border-color: var(--green-2); }
+  .door.demo { border-style: dashed; border-color: var(--green); background: var(--card); min-height: 80px; }
+  .door.demo b { color: var(--green-text); }
+  .nuevo { margin-top: 22px; color: var(--ink-2); font-size: 16px; }
+  .nuevo a { font-weight: 700; }
+
+  /* Pie */
+  footer { padding: 40px 0 52px; border-top: 1px solid var(--line); background: var(--paper); }
+  footer .wrap { display: grid; gap: 18px; }
+  .contacto { display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 16px; color: var(--ink-2); }
+  .contacto a { font-weight: 700; }
+  .legal { font-size: 14.5px; color: var(--muted); max-width: 72ch; }
+
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
 </style>
 </head>
 <body>
-<main>
-  <div class="brand"><span class="cap" aria-hidden="true"><i></i><i></i></span>HorariosPR</div>
-  <p>Escoge dónde vas a usarlo.</p>
-  <a class="btn main" id="tel" href="movil.html">Mi horario en el teléfono</a>
-  <a class="btn" id="pc" href="escritorio/" data-escritorio>Armar y publicar el horario (computadora)</a>
-  <a class="btn demo" id="demo" href="escritorio/?demo" data-escritorio><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg><span><b>Ver la demostración</b><span>Una farmacia de ejemplo. Nada se guarda.</span></span></a>
-  <p class="contacto"><a href="mailto:HorariosPR@gmail.com?subject=HorariosPR%20%E2%80%93%20ayuda">Contáctanos</a> · ¿Emergencia? <a href="tel:+17879201210">787-920-1210</a></p>
-  <small>HorariosPR es un servicio de MSBI Group LLC. Valida el horario según las reglas del patrono; no sustituye la nómina ni la asesoría legal.</small>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="HorariosPR, inicio"><span class="logo" aria-hidden="true"><i></i><i></i></span>HorariosPR</a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#beneficios">Beneficios</a>
+      <a href="#como">Cómo funciona</a>
+      <a href="#para-quien">Para quién</a>
+    </nav>
+    <a class="btn btn-green" href="#entrar">Entrar</a>
+  </div>
+</header>
+
+<main id="contenido">
+
+<section class="hero" id="inicio" aria-labelledby="h-hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Horarios de turnos · Puerto Rico</span>
+      <h1 id="h-hero">Tu horario de turnos, listo y <em>validado con las reglas de tu negocio.</em></h1>
+      <p class="lead">Y en el teléfono de cada empleado. Nosotros configuramos tu local; tú lo apruebas y lo publicas.</p>
+      <div class="ctas">
+        <a class="btn btn-sun tel-hero" href="movil.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>Mi horario en el teléfono</a>
+        <a class="btn btn-sun entrar-hero" href="#entrar">Entrar<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ghost" id="demo-hero" href="escritorio/?demo" data-escritorio>Ver la demostración</a>
+        <a class="btn btn-ghost como" href="#como">Cómo funciona</a>
+      </div>
+      <ul class="fine">
+        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Apoyo en español</li>
+        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Te lo dejamos configurado</li>
+        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Tú apruebas antes de publicar</li>
+      </ul>
+    </div>
+
+    <figure class="shot">
+      <figcaption class="sr">Dibujo de ejemplo con datos inventados: la semana de la Farmacia del Ejemplo, con cada empleado como una cápsula en su turno de mañana o de tarde; una nota que dice que el horario cumple con la cobertura completa, el tope de horas y los días seguidos; y un teléfono con los turnos de la semana del Empleado A.</figcaption>
+      <div class="tray" aria-hidden="true">
+        <div class="tray-h"><b>Farmacia del Ejemplo</b><span>Semana del 2 al 8</span></div>
+        <div class="days">
+          <div class="day"><div class="dn">Lun<span>2</span></div><div class="cell am"><span class="cp A">A</span><span class="cp B">B</span></div><div class="cell pm"><span class="cp C">C</span><span class="cp D">D</span></div></div>
+          <div class="day"><div class="dn">Mar<span>3</span></div><div class="cell am"><span class="cp A">A</span><span class="cp E">E</span></div><div class="cell pm"><span class="cp F">F</span><span class="cp C">C</span></div></div>
+          <div class="day"><div class="dn">Mié<span>4</span></div><div class="cell am"><span class="cp B">B</span><span class="cp F">F</span></div><div class="cell pm"><span class="cp D">D</span><span class="cp E">E</span></div></div>
+          <div class="day"><div class="dn">Jue<span>5</span></div><div class="cell am"><span class="cp E">E</span><span class="cp C">C</span></div><div class="cell pm"><span class="cp A">A</span><span class="cp B">B</span></div></div>
+          <div class="day"><div class="dn">Vie<span>6</span></div><div class="cell am"><span class="cp D">D</span><span class="cp F">F</span></div><div class="cell pm"><span class="cp C">C</span><span class="cp E">E</span></div></div>
+          <div class="day"><div class="dn">Sáb<span>7</span></div><div class="cell am"><span class="cp A">A</span><span class="cp D">D</span></div><div class="cell pm"><span class="cp B">B</span><span class="cp F">F</span></div></div>
+          <div class="day"><div class="dn">Dom<span>8</span></div><div class="cell am"><span class="cp C">C</span><span class="cp E">E</span></div><div class="cell pm off">Cerrado</div></div>
+        </div>
+        <div class="legend"><span><i style="background:#f6f3e2"></i>Mañana</span><span><i style="background:#e2eaf3"></i>Tarde</span><span>Cada cápsula es un empleado</span></div>
+      </div>
+      <div class="below" aria-hidden="true">
+        <div class="ok">
+          <b>Revisado con tus reglas</b>
+          <ul>
+            <li><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Cobertura completa</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Tope de horas</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Días seguidos</li>
+          </ul>
+        </div>
+        <div class="phone">
+          <div class="screen">
+            <div class="scr-h"><b>Mi horario</b><span>Empleado A</span></div>
+            <div class="turnos">
+              <div class="turno"><b>Lun<br>2</b>Mañana<small>7:00 a 3:00</small></div>
+              <div class="turno"><b>Mar<br>3</b>Mañana<small>7:00 a 3:00</small></div>
+              <div class="turno"><b>Jue<br>5</b>Tarde<small>1:00 a 9:00</small></div>
+              <div class="turno"><b>Sáb<br>7</b>Mañana<small>7:00 a 3:00</small></div>
+            </div>
+            <div class="tot">Esta semana: 32 h</div>
+          </div>
+        </div>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<section class="s" id="beneficios" aria-labelledby="h-ben">
+  <div class="wrap">
+    <span class="kicker">Por qué HorariosPR</span>
+    <h2 id="h-ben">Lo pesado del horario, resuelto.</h2>
+    <p class="sub">Menos horas haciendo el horario, menos llamadas de «yo no sabía» y las reglas de tu negocio por escrito.</p>
+    <div class="grid g4">
+      <article class="card">
+        <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span>
+        <h3>Validado con tus reglas</h3>
+        <p>Cada cambio se revisa al momento: cobertura, tope de horas, días seguidos, días libres. Si algo no cumple, te lo marca.</p>
+      </article>
+      <article class="card">
+        <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span>
+        <h3>En el teléfono de cada empleado</h3>
+        <p>Cada quien ve sus turnos, con quién trabaja y el horario del local. Sin fotos del horario ni mensajes uno por uno.</p>
+      </article>
+      <article class="card">
+        <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19.5c.6-3 2.8-4.8 5.5-4.8s4.9 1.8 5.5 4.8"/><path d="M15.5 6.5h5.5m0 0-2-2m2 2-2 2M21 12.5h-5.5m0 0 2-2m-2 2 2 2"/></svg></span>
+        <h3>Quién cubre si alguien falta</h3>
+        <p>Tocas el turno de quien no viene y te propone quién puede cubrir sin romper tus reglas.</p>
+      </article>
+      <article class="card">
+        <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2.8h6V4M9 13l2 2 4-4"/></svg></span>
+        <h3>Te lo dejamos listo</h3>
+        <p>Configuramos tu local por ti. Tú apruebas el horario antes de publicarlo, y te ayudamos en español.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="s alt" id="como" aria-labelledby="h-como">
+  <div class="wrap">
+    <span class="kicker">Cómo funciona</span>
+    <h2 id="h-como">De la reunión al horario publicado, en tres pasos.</h2>
+    <ol class="grid g3 steps" style="list-style:none;padding:0;margin-bottom:0">
+      <li class="card">
+        <span class="num" aria-hidden="true"><b>1</b><i></i></span>
+        <h3>Nos reunimos</h3>
+        <p>Nos cuentas cómo trabajas: tus turnos, cuántas personas hacen falta y las reglas de siempre, como quién no cierra o a quién le toca el domingo.</p>
+      </li>
+      <li class="card">
+        <span class="num" aria-hidden="true"><b>2</b><i></i></span>
+        <h3>Configuramos tu local</h3>
+        <p>Cargamos empleados, turnos, ausencias y feriados. Tus reglas quedan por escrito en un Libro de reglas que tú apruebas.</p>
+      </li>
+      <li class="card">
+        <span class="num" aria-hidden="true"><b>3</b><i></i></span>
+        <h3>Te lo entregamos listo</h3>
+        <p>El horario armado y revisado con tus reglas. Lo publicas y cada empleado lo ve en su teléfono.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="s" id="para-quien" aria-labelledby="h-quien">
+  <div class="wrap">
+    <span class="kicker">Para quién</span>
+    <h2 id="h-quien">Para negocios donde el turno importa.</h2>
+    <div class="grid g3 who">
+      <article class="card">
+        <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M9.5 3.5h5v6h6v5h-6v6h-5v-6h-6v-5h6z"/></svg></span>
+        <div><h3>Farmacias</h3><p>De comunidad o cadenas pequeñas: alguien a cargo en cada turno, mañanas y tardes cubiertas, y domingos que rotan.</p></div>
+      </article>
+      <article class="card">
+        <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M4 21V9l8-5.5L20 9v12"/><path d="M9.5 21v-5.5h5V21"/><path d="M12 8v4.5M9.8 10.2h4.4"/></svg></span>
+        <div><h3>Dispensarios</h3><p>Cada turno con la gente que hace falta y alguien a cargo, sin hacer cuentas a mano.</p></div>
+      </article>
+      <article class="card">
+        <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg></span>
+        <div><h3>Negocios con turnos</h3><p>Tiendas, oficinas y servicios con turnos de día que se arman cada semana o cada mes.</p></div>
+      </article>
+    </div>
+    <p class="aside">¿Tienes turnos de noche o abres todo el día? Escríbenos y lo vemos en la reunión.</p>
+  </div>
+</section>
+
+<section class="s alt entrar" id="entrar" aria-labelledby="h-entrar">
+  <div class="wrap">
+    <span class="kicker">Entrar</span>
+    <h2 id="h-entrar">Entra a HorariosPR.</h2>
+    <p class="sub">Escoge dónde lo vas a usar.</p>
+    <div class="doors">
+      <a class="door main" id="tel" href="movil.html"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span><span><b>Mi horario en el teléfono</b><span>Para empleados: tus turnos, con quién trabajas y el horario del local.</span></span><svg class="i go" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      <a class="door" id="pc" href="escritorio/" data-escritorio><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span><span><b>Armar y publicar el horario (computadora)</b><span>Para gerentes y dueños: arma, revisa y publica.</span></span><svg class="i go" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      <a class="door demo" id="demo" href="escritorio/?demo" data-escritorio><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></span><span><b>Ver la demostración</b><span>Una farmacia de ejemplo. Nada se guarda.</span></span><svg class="i go" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <p class="nuevo">¿Todavía no usas HorariosPR? <a href="mailto:HorariosPR@gmail.com?subject=HorariosPR%20%E2%80%93%20coordinar%20una%20reuni%C3%B3n">Escríbenos para coordinar una reunión</a>.</p>
+  </div>
+</section>
+
 </main>
-<script>
-  // En un teléfono va directo a "Mi horario"; en la computadora deja escoger.
-  try { if (matchMedia('(max-width: 700px) and (pointer: coarse)').matches && !location.hash) location.replace('movil.html'); } catch (e) {}
-</script>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="HorariosPR, volver al inicio"><span class="logo" aria-hidden="true"><i></i><i></i></span>HorariosPR</a>
+    <p class="contacto"><a href="mailto:HorariosPR@gmail.com?subject=HorariosPR%20%E2%80%93%20ayuda">Contáctanos</a><span>¿Emergencia? <a href="tel:+17879201210">787-920-1210</a></span></p>
+    <p class="legal">HorariosPR es un servicio de MSBI Group LLC. Valida el horario según las reglas del patrono; no sustituye la nómina ni la asesoría legal.</p>
+  </div>
+</footer>
 </body>
 </html>
