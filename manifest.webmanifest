@@ -1,0 +1,20 @@
+{
+  "name": "HorariosPR",
+  "short_name": "HorariosPR",
+  "description": "Tu horario y el del local, también sin conexión.",
+  "lang": "es",
+  "dir": "ltr",
+  "id": "./movil.html",
+  "start_url": "./movil.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#eef3f1",
+  "theme_color": "#0f6b57",
+  "icons": [
+    { "src": "iconos/icono.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "iconos/icono-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "iconos/icono-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "iconos/icono-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

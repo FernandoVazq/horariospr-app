@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HorariosPR</title>
+<meta name="theme-color" content="#0f6b57">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+  :root { --paper: #eef3f1; --card: #fff; --ink: #15302a; --muted: #557069; --green: #0f6b57; --yellow: #f3c64f; --line: #d3e0dc; }
+  @media (prefers-color-scheme: dark) { :root { --paper: #0f1a17; --card: #16241f; --ink: #e3eeea; --muted: #9db3ac; --green: #4fbf9f; --line: #2a3d37; color-scheme: dark; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--paper); color: var(--ink);
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif; padding: 24px 16px; }
+  main { width: 100%; max-width: 420px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 28px 24px; display: grid; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 12px; font-weight: 750; font-size: 1.4rem; letter-spacing: -0.03em; }
+  .cap { width: 34px; height: 18px; border-radius: 9px; transform: rotate(-28deg); overflow: hidden; display: flex; }
+  .cap i { flex: 1; } .cap i:first-child { background: var(--green); } .cap i:last-child { background: var(--yellow); }
+  p { margin: 0; color: var(--muted); line-height: 1.5; }
+  a.btn { display: block; text-align: center; text-decoration: none; font-weight: 700; padding: 14px; border-radius: 12px; border: 1px solid var(--line); color: var(--ink); background: var(--paper); }
+  a.btn.main { background: var(--green); border-color: var(--green); color: #fff; }
+  a.btn:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+  small { color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <div class="brand"><span class="cap" aria-hidden="true"><i></i><i></i></span>HorariosPR</div>
+  <p>Escoge dónde vas a usarlo.</p>
+  <a class="btn main" id="tel" href="movil.html">Mi horario en el teléfono</a>
+  <a class="btn" id="pc" href="escritorio/">Armar y publicar el horario (computadora)</a>
+  <small>HorariosPR es un servicio de MSBI Group LLC. Valida el horario según las reglas del patrono; no sustituye la nómina ni la asesoría legal.</small>
+</main>
+<script>
+  // En un teléfono va directo a "Mi horario"; en la computadora deja escoger.
+  try { if (matchMedia('(max-width: 700px) and (pointer: coarse)').matches && !location.hash) location.replace('movil.html'); } catch (e) {}
+</script>
+</body>
+</html>
