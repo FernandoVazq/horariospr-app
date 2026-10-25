@@ -95,7 +95,7 @@
   .confeti i:nth-child(2) { --c: #c23e77; right: 30%; bottom: 7%; }
   .confeti i:nth-child(3) { --c: #cc6a16; right: 6%; top: 8%; }
   .confeti i:nth-child(4) { --c: #8a4fbf; left: 2%; top: 5%; width: 34px; height: 14px; }
-  .hero > .wrap { position: relative; z-index: 1; display: grid; gap: 40px; padding-top: 44px; padding-bottom: 68px; }
+  .hero > .wrap { position: relative; z-index: 1; display: grid; gap: 40px; padding-top: 30px; padding-bottom: 44px; }
   .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 13px; border-radius: 999px; background: rgba(255, 255, 255, .14); font-size: 14.5px; font-weight: 700; }
   .eyebrow::before { content: ""; width: 9px; height: 9px; border-radius: 99px; background: var(--yellow); }
   .hero h1 { margin-top: 18px; font-size: clamp(36px, 9vw, 56px); font-weight: 800; letter-spacing: -.035em; line-height: 1.02; }
@@ -112,7 +112,7 @@
   @media (min-width: 560px) { .ctas .btn { flex: 0 0 auto; } }
   /* En el teléfono, lo primero: "Mi horario" */
   @media (max-width: 699px) { .tel-hero { display: inline-flex; flex-basis: 100%; min-height: 56px; font-size: 18px; } .entrar-hero { display: none; } }
-  @media (min-width: 960px) { .hero > .wrap { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 48px; padding-top: 80px; padding-bottom: 100px; } }
+  @media (min-width: 960px) { .hero > .wrap { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 40px; padding-top: 48px; padding-bottom: 60px; } }
 
   /* Dibujo del horario (hecho con HTML y CSS; todo inventado) */
   .shot { margin: 0; position: relative; }
@@ -165,17 +165,17 @@
   @media (max-width: 400px) { .tray { padding: 10px 8px; } .days { gap: 4px; } .cp { padding-left: 4px; font-size: 10.5px; } .phone { width: 124px; } .ok { padding: 10px 11px; font-size: 12.5px; } .aviso { font-size: 11.5px; padding: 5px 10px; } }
 
   /* Secciones */
-  .s { padding: 72px 0; }
+  .s { padding: 44px 0; }
   .s.alt { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  @media (min-width: 960px) { .s { padding: 104px 0; } }
+  @media (min-width: 960px) { .s { padding: 60px 0; } }
   .kicker { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 12px; font-size: 15px; font-weight: 750; color: var(--green-text); }
   .kicker::before { content: ""; width: 22px; height: 9px; border-radius: 99px; background: linear-gradient(90deg, var(--green) 0 50%, var(--yellow) 50%); transform: rotate(-20deg); }
-  .s h2 { font-size: clamp(31px, 6vw, 50px); font-weight: 800; letter-spacing: -.03em; max-width: 22ch; }
-  .sub { margin-top: 16px; font-size: 19px; color: var(--ink-2); max-width: 52ch; }
+  .s h2 { font-size: clamp(28px, 5vw, 40px); font-weight: 800; letter-spacing: -.03em; max-width: 32ch; }
+  .sub { margin-top: 10px; font-size: 17.5px; color: var(--ink-2); max-width: 52ch; }
   .grid { display: grid; gap: 18px; margin-top: 40px; }
   @media (min-width: 640px) { .grid.g4, .grid.g3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 1000px) { .grid.g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } .grid.g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  .card { position: relative; padding: 26px 22px 24px; border-radius: 20px; background: var(--card); border: 1px solid var(--line); box-shadow: var(--lift); transition: transform .2s, box-shadow .2s; }
+  .card { position: relative; padding: 18px 18px 16px; border-radius: 20px; background: var(--card); border: 1px solid var(--line); box-shadow: var(--lift); transition: transform .2s, box-shadow .2s; }
   .card.acc { border-top: 5px solid var(--c); }
   .card.acc:hover { transform: translateY(-3px); }
   .s.alt .card { background: var(--paper); }
@@ -187,11 +187,11 @@
   /* En el teléfono */
   .tel-s { display: grid; gap: 40px; align-items: center; }
   @media (min-width: 900px) { .tel-s { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 56px; } }
-  .ve { display: grid; gap: 14px; margin: 32px 0 0; padding: 0; list-style: none; }
+  .ve { display: grid; gap: 10px; margin: 20px 0 0; padding: 0; list-style: none; }
   .ve li { display: flex; align-items: center; gap: 14px; font-size: 17.5px; }
   .ve .ic { margin: 0; flex: none; width: 44px; height: 44px; border-radius: 13px; }
   .ve svg.i { width: 22px; height: 22px; }
-  .pronto { margin-top: 30px; padding: 20px 20px 18px; border-radius: 18px; background: var(--sunk); border: 1px dashed var(--line); }
+  .pronto { margin-top: 20px; padding: 16px 18px 14px; border-radius: 18px; background: var(--sunk); border: 1px dashed var(--line); }
   .s.alt .pronto { background: var(--paper); }
   .pronto h3 { font-size: 18px; font-weight: 780; }
   .pronto ul { display: grid; gap: 12px; margin: 14px 0 0; padding: 0; list-style: none; }
@@ -238,7 +238,7 @@
   .doors { display: flex; flex-wrap: wrap; gap: 14px; max-width: 960px; margin-top: 32px; }
   .door { flex: 1 1 100%; }
   @media (min-width: 760px) { .door { flex-basis: 320px; } .door.demo { flex-basis: 100%; } }
-  .door { display: flex; align-items: center; gap: 16px; min-height: 92px; padding: 20px 22px; border-radius: 20px; text-decoration: none; color: var(--ink); background: var(--paper); border: 2px solid var(--line); box-shadow: var(--shadow); transition: transform .15s, border-color .15s; }
+  .door { display: flex; align-items: center; gap: 14px; min-height: 72px; padding: 14px 18px; border-radius: 20px; text-decoration: none; color: var(--ink); background: var(--paper); border: 2px solid var(--line); box-shadow: var(--shadow); transition: transform .15s, border-color .15s; }
   .door:hover { transform: translateY(-2px); border-color: var(--c, var(--green)); }
   .door .ic { margin: 0; flex: none; width: 52px; height: 52px; }
   .door b { display: block; font-size: 19px; line-height: 1.2; }
@@ -255,18 +255,18 @@
   .nuevo a { font-weight: 700; }
 
   /* Pie */
-  footer { padding: 40px 0 52px; border-top: 1px solid var(--line); background: var(--paper); }
+  footer { padding: 28px 0 36px; border-top: 1px solid var(--line); background: var(--paper); }
   footer .wrap { display: grid; gap: 18px; }
   .contacto { display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 16px; color: var(--ink-2); }
   .contacto a { font-weight: 700; }
   .legal { font-size: 14.5px; color: var(--muted); max-width: 72ch; }
 
   /* Tú lo manejas: las pantallas de la app */
-  .tools { display: grid; gap: 14px; margin: 40px 0 0; padding: 0; list-style: none; }
+  .tools { display: grid; gap: 10px; margin: 24px 0 0; padding: 0; list-style: none; }
   @media (min-width: 600px) { .tools { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 960px) { .tools { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   @media (min-width: 1120px) { .tools { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-  .tool { display: flex; gap: 14px; align-items: flex-start; padding: 18px 18px 18px 16px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); border-left: 5px solid var(--c); box-shadow: var(--lift); }
+  .tool { display: flex; gap: 12px; align-items: flex-start; padding: 13px 14px 13px 13px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); border-left: 5px solid var(--c); box-shadow: var(--lift); }
   .tool .ic { margin: 0; flex: none; width: 42px; height: 42px; border-radius: 12px; }
   .tool .ic svg.i { width: 22px; height: 22px; }
   .tool b { display: block; font-size: 17.5px; line-height: 1.25; }
@@ -281,7 +281,7 @@
   .btn-line { color: var(--green-text); box-shadow: inset 0 0 0 2px currentColor; background: transparent; }
   .btn-line:hover { background: var(--green-soft); }
   .pasos4 { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; counter-reset: p4; }
-  .pasos4 li { counter-increment: p4; display: grid; grid-template-columns: 44px 1fr; gap: 2px 14px; align-items: center; padding: 16px 18px; border-radius: 18px; background: var(--paper); border: 1px solid var(--line); }
+  .pasos4 li { counter-increment: p4; display: grid; grid-template-columns: 44px 1fr; gap: 2px 14px; align-items: center; padding: 11px 16px; border-radius: 18px; background: var(--paper); border: 1px solid var(--line); }
   .pasos4 li::before { content: counter(p4); grid-row: span 2; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px; background: var(--c-solid); color: #fff; font-weight: 800; font-size: 18px; }
   .pasos4 b { font-size: 18px; }
   .pasos4 span { color: var(--ink-2); font-size: 15.5px; }
@@ -420,22 +420,22 @@
       <article class="card acc k-verde rv" style="--i:0">
         <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span>
         <h3>Revisado con tus reglas</h3>
-        <p>Cada vez que mueves a alguien, revisa la cobertura, el tope de horas, los días seguidos y los libres.</p>
+        <p>Cada cambio se revisa al momento.</p>
       </article>
       <article class="card acc k-azul rv" style="--i:1">
         <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span>
         <h3>En el teléfono de cada empleado</h3>
-        <p>Cada quien entra con su correo y ve sus turnos y con quién le toca.</p>
+        <p>Sus turnos y con quién le toca.</p>
       </article>
       <article class="card acc k-coral rv" style="--i:2">
         <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19.5c.6-3 2.8-4.8 5.5-4.8s4.9 1.8 5.5 4.8"/><path d="M15.5 6.5h5.5m0 0-2-2m2 2-2 2M21 12.5h-5.5m0 0 2-2m-2 2 2 2"/></svg></span>
         <h3>Quién cubre si alguien falta</h3>
-        <p>Tocas el turno, marcas «Está enfermo/a» y te dice quién puede cubrir sin romper tus reglas.</p>
+        <p>Te dice quién puede cubrir.</p>
       </article>
       <article class="card acc k-morado rv" style="--i:3">
         <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2.8h6V4M9 13l2 2 4-4"/></svg></span>
         <h3>Te lo dejamos listo</h3>
-        <p>Nosotros montamos tu local. Si te trancas, nos llamas o nos escribes y te ayudamos en español.</p>
+        <p>Montamos tu local y te ayudamos en español.</p>
       </article>
     </div>
   </div>
@@ -447,7 +447,7 @@
       <div class="rv">
         <span class="kicker">En el teléfono</span>
         <h2 id="h-tel">Así lo ve cada empleado.</h2>
-        <p class="sub">Sin bajar nada: abre la página y entra con su correo.</p>
+        <p class="sub">Sin bajar nada: entra con su correo.</p>
       </div>
       <ul class="ve">
         <li class="acc k-azul rv" style="--i:0"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></span>Sus turnos de la semana o del mes, con las horas.</li>
@@ -488,21 +488,21 @@
     <div class="rv">
       <span class="kicker">Tú lo manejas</span>
       <h2 id="h-man">Te lo dejamos montado y tú lo manejas.</h2>
-      <p class="sub">Después de la instalación, cambias lo que quieras desde la computadora, sin esperar por nosotros.</p>
+      <p class="sub">Después de la instalación, lo cambias tú cuando quieras.</p>
     </div>
     <ul class="tools">
-      <li class="tool acc k-verde rv" style="--i:0"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4M8 14.5h3M13 14.5h3"/></svg></span><span><b>Horario</b><span>Cambia a alguien con un toque o arrastrando su cápsula.</span></span></li>
-      <li class="tool acc k-azul rv" style="--i:1"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4M12 13v5M9.5 15.5h5"/></svg></span><span><b>Crear horario</b><span>Arma el mes que viene con tus semanas modelo o en automático.</span></span></li>
-      <li class="tool acc k-coral rv" style="--i:2"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c.6-2.8 2.7-4.4 5.5-4.4s4.9 1.6 5.5 4.4M17 8v6M14 11h6"/></svg></span><span><b>Equipo</b><span>Añade gente y ajusta sus horas, días libres y quién no cierra.</span></span></li>
-      <li class="tool acc k-morado rv" style="--i:3"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg></span><span><b>Turnos</b><span>Horas de entrada y salida, y cuánta gente va en cada turno.</span></span></li>
-      <li class="tool acc k-ocre rv" style="--i:0"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><span><b>Reglas</b><span>Enciende o apaga cada regla y cambia los topes.</span></span></li>
-      <li class="tool acc k-teal rv" style="--i:1"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="4" width="7" height="7" rx="1.5"/><rect x="13.5" y="4" width="7" height="7" rx="1.5"/><rect x="3.5" y="14" width="7" height="7" rx="1.5"/><rect x="13.5" y="14" width="7" height="7" rx="1.5"/></svg></span><span><b>Patrones</b><span>Guarda semanas modelo para no empezar cada mes de cero.</span></span></li>
-      <li class="tool acc k-rosa rv" style="--i:2"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4M10 13.5l4 4M14 13.5l-4 4"/></svg></span><span><b>Ausencias</b><span>Vacaciones, citas, días libres y enfermedad, y el horario los respeta.</span></span></li>
-      <li class="tool acc k-oliva rv" style="--i:3"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></span><span><b>Revisar</b><span>¿Lo haces en Excel? Súbelo y te dice errores, huecos y horas extra probables.</span></span></li>
-      <li class="tool acc k-naranja rv" style="--i:0"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5"/><path d="M5 14v4.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V14"/></svg></span><span><b>Publicar</b><span>Cada mes publicado queda guardado como Versión 1, 2, 3.</span></span></li>
-      <li class="tool acc k-indigo rv" style="--i:1"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></span><span><b>Deshacer</b><span>Ctrl+Z deshace lo último que cambiaste.</span></span></li>
-      <li class="tool acc k-gris rv" style="--i:2"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M7 9V3.5h10V9"/><rect x="3.5" y="9" width="17" height="8" rx="2"/><path d="M7 14h10v6.5H7z"/></svg></span><span><b>Imprimir o Excel</b><span>Una hoja tamaño carta o un Excel con colores.</span></span></li>
-      <li class="tool acc k-cafe rv" style="--i:3"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M7 20v-6M12 20V7M17 20v-9"/></svg></span><span><b>Informe para el dueño</b><span>Horas del mes, horas extra (mínimo) y el reparto de domingos.</span></span></li>
+      <li class="tool acc k-verde rv" style="--i:0"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4M8 14.5h3M13 14.5h3"/></svg></span><span><b>Horario</b><span>Mueve a alguien con un toque.</span></span></li>
+      <li class="tool acc k-azul rv" style="--i:1"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4M12 13v5M9.5 15.5h5"/></svg></span><span><b>Crear horario</b><span>El mes que viene, en unos clics.</span></span></li>
+      <li class="tool acc k-coral rv" style="--i:2"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c.6-2.8 2.7-4.4 5.5-4.4s4.9 1.6 5.5 4.4M17 8v6M14 11h6"/></svg></span><span><b>Equipo</b><span>Gente, horas y días libres.</span></span></li>
+      <li class="tool acc k-morado rv" style="--i:3"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg></span><span><b>Turnos</b><span>Horas y gente por turno.</span></span></li>
+      <li class="tool acc k-ocre rv" style="--i:0"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><span><b>Reglas</b><span>Enciende, apaga y ajusta.</span></span></li>
+      <li class="tool acc k-teal rv" style="--i:1"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="4" width="7" height="7" rx="1.5"/><rect x="13.5" y="4" width="7" height="7" rx="1.5"/><rect x="3.5" y="14" width="7" height="7" rx="1.5"/><rect x="13.5" y="14" width="7" height="7" rx="1.5"/></svg></span><span><b>Patrones</b><span>Semanas modelo para repetir.</span></span></li>
+      <li class="tool acc k-rosa rv" style="--i:2"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4M10 13.5l4 4M14 13.5l-4 4"/></svg></span><span><b>Ausencias</b><span>Vacaciones, citas y enfermedad.</span></span></li>
+      <li class="tool acc k-oliva rv" style="--i:3"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></span><span><b>Revisar</b><span>Sube tu Excel y te dice qué falla.</span></span></li>
+      <li class="tool acc k-naranja rv" style="--i:0"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5"/><path d="M5 14v4.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V14"/></svg></span><span><b>Publicar</b><span>Cada versión queda guardada.</span></span></li>
+      <li class="tool acc k-indigo rv" style="--i:1"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></span><span><b>Deshacer</b><span>Ctrl+Z y vuelve atrás.</span></span></li>
+      <li class="tool acc k-gris rv" style="--i:2"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M7 9V3.5h10V9"/><rect x="3.5" y="9" width="17" height="8" rx="2"/><path d="M7 14h10v6.5H7z"/></svg></span><span><b>Imprimir o Excel</b><span>Hoja carta o Excel.</span></span></li>
+      <li class="tool acc k-cafe rv" style="--i:3"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M7 20v-6M12 20V7M17 20v-9"/></svg></span><span><b>Informe para el dueño</b><span>Horas, extras y domingos.</span></span></li>
     </ul>
   </div>
 </section>
@@ -517,17 +517,17 @@
       <li class="card acc k-teal rv" style="--i:0">
         <span class="num" aria-hidden="true"><b>1</b><i></i></span>
         <h3>Nos reunimos</h3>
-        <p>Nos cuentas cuánta gente hace falta, quién no cierra y a quién le toca el domingo.</p>
+        <p>Nos cuentas tus turnos y tus reglas.</p>
       </li>
       <li class="card acc k-ocre rv" style="--i:1">
         <span class="num" aria-hidden="true"><b>2</b><i></i></span>
         <h3>Montamos tu local</h3>
-        <p>Entramos el equipo, los turnos, las vacaciones y los feriados. Tus reglas quedan en un Libro de reglas que tú firmas.</p>
+        <p>Entramos tu equipo, turnos y feriados.</p>
       </li>
       <li class="card acc k-rosa rv" style="--i:2">
         <span class="num" aria-hidden="true"><b>3</b><i></i></span>
         <h3>Te lo entregamos listo</h3>
-        <p>Te damos el mes armado y revisado. Lo publicas y cada empleado lo ve en su teléfono.</p>
+        <p>El mes listo para publicar.</p>
       </li>
     </ol>
   </div>
@@ -542,15 +542,15 @@
     <div class="grid g3 who">
       <article class="card acc k-indigo rv" style="--i:0">
         <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M9.5 3.5h5v6h6v5h-6v6h-5v-6h-6v-5h6z"/></svg></span>
-        <div><h3>Farmacias</h3><p>Alguien a cargo en cada turno, mañanas y tardes cubiertas y los domingos en rotación.</p></div>
+        <div><h3>Farmacias</h3><p>Alguien a cargo y domingos en rotación.</p></div>
       </article>
       <article class="card acc k-oliva rv" style="--i:1">
         <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M4 21V9l8-5.5L20 9v12"/><path d="M9.5 21v-5.5h5V21"/><path d="M12 8v4.5M9.8 10.2h4.4"/></svg></span>
-        <div><h3>Dispensarios</h3><p>La gente que hace falta en cada turno, con alguien a cargo, sin sacar cuentas a mano.</p></div>
+        <div><h3>Dispensarios</h3><p>La gente justa en cada turno.</p></div>
       </article>
       <article class="card acc k-naranja rv" style="--i:2">
         <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg></span>
-        <div><h3>Negocios con turnos</h3><p>Tiendas, oficinas y servicios con turnos de día que se arman cada semana o cada mes.</p></div>
+        <div><h3>Negocios con turnos</h3><p>Tiendas y servicios con turnos de día.</p></div>
       </article>
     </div>
     <p class="aside rv">¿Tienes turnos de noche o abres las 24 horas? Escríbenos y lo hablamos en la reunión.</p>
@@ -562,7 +562,7 @@
     <div class="rv">
       <span class="kicker">Para empezar</span>
       <h2 id="h-reu">Coordina tu reunión.</h2>
-      <p class="sub">Escríbenos con los datos de tu negocio y te contestamos para buscar fecha.</p>
+      <p class="sub">Escríbenos y buscamos fecha.</p>
       <div class="ctas">
         <a class="btn btn-green" href="mailto:HorariosPR@gmail.com?subject=Quiero%20coordinar%20una%20reuni%C3%B3n&amp;body=Hola%2C%20quiero%20coordinar%20una%20reuni%C3%B3n%20para%20HorariosPR.%0D%0A%0D%0ANombre%20del%20negocio%3A%20%0D%0ATipo%20de%20negocio%20(farmacia%2C%20dispensario%20u%20otro)%3A%20%0D%0ACu%C3%A1ntos%20locales%3A%20%0D%0ACu%C3%A1ntos%20empleados%3A%20%0D%0ATel%C3%A9fono%3A%20%0D%0A"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>Escríbenos para coordinar</a>
         <a class="btn btn-line" href="tel:+17879201210"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h3.5l1.5 4-2 1.5a11 11 0 0 0 6.5 6.5l1.5-2 4 1.5V19a1.5 1.5 0 0 1-1.5 1.5A16.5 16.5 0 0 1 3.5 5.5 1.5 1.5 0 0 1 5 4z"/></svg>Llámanos: 787-920-1210</a>
@@ -573,7 +573,7 @@
     </div>
     <ol class="pasos4">
       <li class="acc k-azul rv" style="--i:0"><b>Nos escribes</b><span>El correo ya trae lo que necesitamos saber.</span></li>
-      <li class="acc k-coral rv" style="--i:1"><b>Nos reunimos</b><span>Apuntamos tus turnos y tus reglas, como quién abre y quién cierra.</span></li>
+      <li class="acc k-coral rv" style="--i:1"><b>Nos reunimos</b><span>Apuntamos tus turnos y reglas.</span></li>
       <li class="acc k-morado rv" style="--i:2"><b>Te configuramos el local</b><span>Equipo, turnos, reglas y el primer mes armado.</span></li>
       <li class="acc k-verde rv" style="--i:3"><b>Empiezas</b><span>Publicas y tu equipo lo ve en el teléfono.</span></li>
     </ol>
@@ -588,8 +588,8 @@
       <p class="sub">Escoge dónde lo vas a usar.</p>
     </div>
     <div class="doors">
-      <a class="door main" id="tel" href="movil.html"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span><span><b>Mi horario en el teléfono</b><span>Para empleados: tus turnos, con quién trabajas y el horario del local.</span></span><svg class="i go" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
-      <a class="door acc k-azul" id="pc" href="escritorio/" data-escritorio><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span><span><b>Armar y publicar el horario (computadora)</b><span>Para gerentes y dueños: arma, revisa y publica.</span></span><svg class="i go" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      <a class="door main" id="tel" href="movil.html"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span><span><b>Mi horario en el teléfono</b><span>Para empleados: tus turnos.</span></span><svg class="i go" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      <a class="door acc k-azul" id="pc" href="escritorio/" data-escritorio><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span><span><b>Armar y publicar el horario (computadora)</b><span>Para gerentes y dueños.</span></span><svg class="i go" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
       <a class="door demo acc k-morado" id="demo" href="escritorio/?demo" data-escritorio><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></span><span><b>Ver la demostración</b><span>Una farmacia de ejemplo. Nada se guarda.</span></span><svg class="i go" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
     </div>
     <p class="nuevo">¿Todavía no usas HorariosPR? <a href="#reunion">Coordina tu reunión</a>.</p>
