@@ -8,8 +8,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HorariosPR · Horarios de turnos para farmacias y negocios en Puerto Rico</title>
-<meta name="description" content="HorariosPR arma y revisa el horario de turnos de tu farmacia, dispensario o negocio en Puerto Rico, y cada empleado ve sus turnos en el teléfono.">
+<title>HorariosPR · Horarios de turnos para tu negocio en Puerto Rico</title>
+<meta name="description" content="HorariosPR arma y revisa el horario de turnos de tu negocio en Puerto Rico: farmacias, restaurantes, tiendas, clínicas y más. Cada empleado lo ve en su teléfono.">
 <!-- DIRECCIÓN DEL SITIO: cuando haya dominio propio, cambia https://fernandovazq.github.io/horariospr-app/ aquí y en og:url, og:image, twitter:image, el JSON-LD y sitemap.xml -->
 <link rel="canonical" href="https://fernandovazq.github.io/horariospr-app/">
 <!-- Search Console: pon el código de Google y quita el comentario
@@ -18,16 +18,16 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="HorariosPR">
 <meta property="og:locale" content="es_PR">
-<meta property="og:title" content="HorariosPR · Horarios de turnos para farmacias y negocios en Puerto Rico">
-<meta property="og:description" content="HorariosPR arma y revisa el horario de turnos de tu farmacia, dispensario o negocio en Puerto Rico, y cada empleado ve sus turnos en el teléfono.">
+<meta property="og:title" content="HorariosPR · Horarios de turnos para tu negocio en Puerto Rico">
+<meta property="og:description" content="HorariosPR arma y revisa el horario de turnos de tu negocio en Puerto Rico: farmacias, restaurantes, tiendas, clínicas y más. Cada empleado lo ve en su teléfono.">
 <meta property="og:url" content="https://fernandovazq.github.io/horariospr-app/">
 <meta property="og:image" content="https://fernandovazq.github.io/horariospr-app/media/horariospr-poster.jpg">
 <meta property="og:image:width" content="1280">
 <meta property="og:image:height" content="720">
 <meta property="og:image:alt" content="El horario del mes de una farmacia de ejemplo en HorariosPR, con cada empleado como una cápsula de color">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="HorariosPR · Horarios de turnos para farmacias y negocios en Puerto Rico">
-<meta name="twitter:description" content="HorariosPR arma y revisa el horario de turnos de tu farmacia, dispensario o negocio en Puerto Rico, y cada empleado ve sus turnos en el teléfono.">
+<meta name="twitter:title" content="HorariosPR · Horarios de turnos para tu negocio en Puerto Rico">
+<meta name="twitter:description" content="HorariosPR arma y revisa el horario de turnos de tu negocio en Puerto Rico: farmacias, restaurantes, tiendas, clínicas y más. Cada empleado lo ve en su teléfono.">
 <meta name="twitter:image" content="https://fernandovazq.github.io/horariospr-app/media/horariospr-poster.jpg">
 <meta name="twitter:image:alt" content="El horario del mes de una farmacia de ejemplo en HorariosPR">
 <script type="application/ld+json">
@@ -49,7 +49,7 @@
       "@id": "https://fernandovazq.github.io/horariospr-app/#app",
       "name": "HorariosPR",
       "url": "https://fernandovazq.github.io/horariospr-app/",
-      "description": "HorariosPR arma y revisa el horario de turnos de tu farmacia, dispensario o negocio en Puerto Rico, y cada empleado ve sus turnos en el teléfono.",
+      "description": "HorariosPR arma y revisa el horario de turnos de tu negocio en Puerto Rico: farmacias, restaurantes, tiendas, clínicas y más. Cada empleado lo ve en su teléfono.",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Web",
       "inLanguage": "es-PR",
@@ -606,21 +606,13 @@
         <li class="acc k-teal rv" style="--i:2"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M4 21V9l8-5.5L20 9v12"/><path d="M9.5 21v-5.5h5V21"/></svg></span><span><b>El horario completo de todos los empleados</b><ul class="pts"><li>Por día o por semana</li></ul></span></li>
         <li class="acc k-ocre rv" style="--i:3"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M2 8.5a15 15 0 0 1 20 0M5.5 12a10 10 0 0 1 13 0M9 15.5a5 5 0 0 1 6 0"/><path d="M3 3l18 18"/></svg></span><span><b>Sin señal</b><ul class="pts"><li>Mantiene la información de la última vez que accedió</li></ul></span></li>
       </ul>
-      <div class="pronto rv">
-        <h3>Lo que viene</h3>
-        <ul>
-          <li><span class="tag">Próximamente</span><b>Aviso en el teléfono cuando publicas o le cambias un turno.</b></li>
-          <li><span class="tag">Próximamente</span><b>El horario por WhatsApp a todos de una vez.</b><small>Hoy «Enviar horario» abre WhatsApp con el mensaje listo, una persona a la vez.</small></li>
-          <li><span class="tag">Próximamente</span><b>La app en App Store y Google Play, con el aviso de «mañana trabajas».</b></li>
-        </ul>
-      </div>
     </div>
     <figure class="tel-fig rv" style="--i:1">
       <figcaption class="sr">Dibujo de ejemplo con datos inventados: el teléfono del Empleado B con sus cuatro turnos de la semana, 32 horas, con quién trabaja en cada uno y los dos días en que le toca encargarse.</figcaption>
       <div class="movil" aria-hidden="true">
         <div class="screen">
           <div class="scr-h"><b>Mi horario</b><span>Empleado B · Farmacia del Ejemplo</span></div>
-          <div class="tabs"><span class="on">Mi horario</span><span>El local</span></div>
+          <div class="tabs"><span class="on">Mi horario</span><span>Todos</span></div>
           <div class="sum"><b id="horas">32 h</b><span>esta semana · 4 turnos</span></div>
           <div class="mt">
             <div><span class="f">Lun<strong>2</strong></span><span class="t">Mañana</span><span class="h">7:00 a 3:00</span><span class="con">Con <span class="cp A">A</span></span></div>
@@ -638,8 +630,8 @@
   <div class="wrap">
     <div class="rv">
       <span class="kicker">Tú lo manejas</span>
-      <h2 id="h-man">Te lo dejamos montado y tú lo manejas.</h2>
-      <p class="sub">Después de la instalación, lo cambias tú cuando quieras.</p>
+      <h2 id="h-man">Fácil de manejar.</h2>
+      <p class="sub">Después de la instalación, puedes modificarlo a tus necesidades.</p>
     </div>
     <ul class="tools">
       <li class="tool acc k-verde rv" style="--i:0"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4M8 14.5h3M13 14.5h3"/></svg></span><span><b>Horario</b><span>Mueve a alguien con un toque.</span></span></li>
@@ -689,24 +681,36 @@
   <div class="wrap">
     <div class="rv">
       <span class="kicker">Para quién</span>
-      <h2 id="h-quien">Para negocios que trabajan por turnos.</h2>
-      <p class="sub" style="max-width:72ch">Horarios de turnos para farmacias, dispensarios y otros negocios en Puerto Rico.</p>
+      <h2 id="h-quien">Para cualquier negocio que trabaja por turnos.</h2>
+      <p class="sub" style="max-width:72ch">Farmacias, restaurantes, tiendas, clínicas, dispensarios, oficinas y servicios en Puerto Rico.</p>
     </div>
     <div class="grid g3 who">
       <article class="card acc k-indigo rv" style="--i:0">
         <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M9.5 3.5h5v6h6v5h-6v6h-5v-6h-6v-5h6z"/></svg></span>
-        <div><h3>Farmacias</h3><ul class="pts"><li>Alguien a cargo por turno</li><li>Mañanas y tardes cubiertas</li><li>Domingos en rotación</li></ul></div>
+        <div><h3>Farmacias</h3><ul class="pts"><li>Alguien a cargo por turno</li><li>Domingos en rotación</li></ul></div>
+      </article>
+      <article class="card acc k-coral rv" style="--i:1">
+        <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M16 21V3c-2.5 0-4 2.5-4 6v4h4"/></svg></span>
+        <div><h3>Restaurantes y cafés</h3><ul class="pts"><li>Turnos partidos</li><li>Fines de semana cubiertos</li></ul></div>
+      </article>
+      <article class="card acc k-azul rv" style="--i:2">
+        <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 0 1 6 0v2"/></svg></span>
+        <div><h3>Tiendas y comercios</h3><ul class="pts"><li>Quién abre y quién cierra</li><li>Temporadas con más gente</li></ul></div>
+      </article>
+      <article class="card acc k-teal rv" style="--i:0">
+        <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M6 4v5a4 4 0 0 0 8 0V4M10 13v2a4 4 0 0 0 8 0v-1"/><circle cx="18" cy="12" r="2"/></svg></span>
+        <div><h3>Clínicas y oficinas</h3><ul class="pts"><li>Recepción siempre cubierta</li><li>Vacaciones sin huecos</li></ul></div>
       </article>
       <article class="card acc k-oliva rv" style="--i:1">
-        <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M4 21V9l8-5.5L20 9v12"/><path d="M9.5 21v-5.5h5V21"/><path d="M12 8v4.5M9.8 10.2h4.4"/></svg></span>
-        <div><h3>Dispensarios</h3><ul class="pts"><li>La gente justa por turno</li><li>Con alguien a cargo</li><li>Sin sacar cuentas a mano</li></ul></div>
+        <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M4 21V9l8-5.5L20 9v12"/><path d="M9.5 21v-5.5h5V21"/></svg></span>
+        <div><h3>Dispensarios</h3><ul class="pts"><li>Varios locales</li><li>La gente justa por turno</li></ul></div>
       </article>
       <article class="card acc k-naranja rv" style="--i:2">
         <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg></span>
-        <div><h3>Negocios con turnos</h3><ul class="pts"><li>Tiendas, oficinas y servicios</li><li>Turnos de día</li><li>Por semana o por mes</li></ul></div>
+        <div><h3>Servicios</h3><ul class="pts"><li>Seguridad, limpieza y más</li><li>Turnos de noche</li></ul></div>
       </article>
     </div>
-    <p class="aside rv">¿Tienes turnos de noche o abres las 24 horas? Escríbenos y lo hablamos en la reunión.</p>
+    <p class="aside rv">¿Abres de noche o las 24 horas? También se puede: lo armamos contigo en la reunión.</p>
   </div>
 </section>
 
