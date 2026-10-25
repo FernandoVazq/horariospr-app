@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- La portada del sitio (dist-sitio/index.html). La copia scripts/sitio.mjs; sin --con-escritorio quita las líneas con data-escritorio. -->
 <html lang="es">
 <head>
 <meta charset="utf-8">
@@ -20,7 +21,13 @@
   a.btn { display: block; text-align: center; text-decoration: none; font-weight: 700; padding: 14px; border-radius: 12px; border: 1px solid var(--line); color: var(--ink); background: var(--paper); }
   a.btn.main { background: var(--green); border-color: var(--green); color: #fff; }
   a.btn:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+  a.btn.demo { display: flex; align-items: center; gap: 12px; text-align: left; padding: 14px 16px; border: 2px solid var(--green); color: var(--green); background: var(--card); }
+  a.btn.demo svg { flex: none; width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  a.btn.demo b { display: block; font-size: 1.1rem; }
+  a.btn.demo span span { display: block; font-weight: 400; color: var(--muted); font-size: 0.9rem; }
   small { color: var(--muted); }
+  .contacto { font-size: 0.85rem; color: var(--muted); }
+  .contacto a { color: var(--green); font-weight: 700; }
 </style>
 </head>
 <body>
@@ -28,7 +35,9 @@
   <div class="brand"><span class="cap" aria-hidden="true"><i></i><i></i></span>HorariosPR</div>
   <p>Escoge dónde vas a usarlo.</p>
   <a class="btn main" id="tel" href="movil.html">Mi horario en el teléfono</a>
-  <a class="btn" id="pc" href="escritorio/">Armar y publicar el horario (computadora)</a>
+  <a class="btn" id="pc" href="escritorio/" data-escritorio>Armar y publicar el horario (computadora)</a>
+  <a class="btn demo" id="demo" href="escritorio/?demo" data-escritorio><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg><span><b>Ver la demostración</b><span>Una farmacia de ejemplo. Nada se guarda.</span></span></a>
+  <p class="contacto"><a href="mailto:HorariosPR@gmail.com?subject=HorariosPR%20%E2%80%93%20ayuda">Contáctanos</a> · ¿Emergencia? <a href="tel:+17879201210">787-920-1210</a></p>
   <small>HorariosPR es un servicio de MSBI Group LLC. Valida el horario según las reglas del patrono; no sustituye la nómina ni la asesoría legal.</small>
 </main>
 <script>
