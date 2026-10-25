@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Solo la portada (no las páginas de la app). Si cambia la dirección del sitio, cámbiala aquí también. -->
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://fernandovazq.github.io/horariospr-app/</loc>
-    <lastmod>2026-10-25</lastmod>
-  </url>
-</urlset>
