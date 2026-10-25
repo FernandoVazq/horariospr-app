@@ -2,12 +2,14 @@
 <!-- La portada del sitio (dist-sitio/index.html). La copia scripts/sitio.mjs; sin --con-escritorio quita cada línea que lleve la marca de escritorio. -->
 <!-- Por eso cada enlace a escritorio/ va entero en UNA línea, y la página se ve bien sin ellos. Nada se carga de fuera (GitHub Pages, sin cabeceras). -->
 <!-- Todos los nombres del dibujo son inventados (Farmacia del Ejemplo, Empleado A…F). Nunca datos de clientes. -->
+<!-- Cada promesa sale de lo que la app hace hoy. Lo planificado lleva la etiqueta "Próximamente" (ORDENES 9, 11 y 13). -->
+<!-- Movimiento: solo si corre el JavaScript del final y el sistema no pide menos movimiento (html.anim). Sin JS, todo se ve quieto. -->
 <html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>HorariosPR · Horarios de turnos para tu negocio</title>
-<meta name="description" content="HorariosPR arma el horario de turnos de tu negocio, lo valida con tus reglas y lo pone en el teléfono de cada empleado. Para farmacias, dispensarios y negocios con turnos en Puerto Rico.">
+<meta name="description" content="HorariosPR arma el horario de turnos de tu negocio, lo revisa con tus reglas y cada empleado lo ve en su teléfono. Para farmacias, dispensarios y negocios con turnos en Puerto Rico.">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0f6b57">
 <link rel="manifest" href="manifest.webmanifest">
@@ -19,6 +21,9 @@
     --yellow: #f3c64f; --yellow-2: #e2ad2a; --on-green: #fff; --focus: #0b4a3d;
     --hero-a: #127a63; --hero-b: #0f6b57; --hero-c: #083f33;
     --shadow: 0 1px 0 rgba(21, 48, 42, .06), 0 18px 40px -22px rgba(21, 48, 42, .35);
+    --lift: 0 1px 0 rgba(21, 48, 42, .05), 0 22px 40px -26px rgba(21, 48, 42, .45);
+    /* Acentos de color: la mezcla que se lee bien en claro */
+    --mix-soft: #fff; --mix-ink: #000; --soft-pct: 13%; --ink-pct: 80%;
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
@@ -28,12 +33,14 @@
       --on-green: #06241d; --focus: #f3c64f;
       --hero-a: #0f5c4b; --hero-b: #0b4a3d; --hero-c: #062a23;
       --shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 18px 40px -22px rgba(0, 0, 0, .8);
+      --lift: 0 1px 0 rgba(0, 0, 0, .3), 0 22px 40px -24px rgba(0, 0, 0, .9);
+      --mix-soft: #13221e; --mix-ink: #fff; --soft-pct: 26%; --ink-pct: 48%;
       color-scheme: dark;
     }
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-  body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.5 "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif; overflow-x: hidden; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.55 "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif; overflow-x: hidden; }
   h1, h2, h3 { margin: 0; line-height: 1.1; letter-spacing: -.02em; text-wrap: balance; }
   p { margin: 0; }
   a { color: var(--green-text); }
@@ -46,6 +53,12 @@
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   svg.i { flex: none; width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   section[id] { scroll-margin-top: 72px; }
+
+  /* Colores de las cápsulas de la app (src/ui.tsx, PILL_COLORS): cada tarjeta lleva el suyo */
+  .acc { --c-soft: color-mix(in srgb, var(--c) var(--soft-pct), var(--mix-soft)); --c-ink: color-mix(in srgb, var(--c) var(--ink-pct), var(--mix-ink)); --c-solid: color-mix(in srgb, var(--c) 82%, #000); }
+  .k-verde { --c: #1e7a5f; } .k-azul { --c: #3466c2; } .k-coral { --c: #c2563a; } .k-morado { --c: #8a4fbf; }
+  .k-ocre { --c: #a97a06; } .k-teal { --c: #2189a3; } .k-rosa { --c: #c23e77; } .k-oliva { --c: #56751a; }
+  .k-naranja { --c: #cc6a16; } .k-indigo { --c: #3e4fa8; }
 
   /* Marca: la cápsula verde y amarilla */
   .brand { display: inline-flex; align-items: center; gap: 11px; color: inherit; text-decoration: none; font-weight: 780; font-size: 21px; letter-spacing: -.03em; }
@@ -67,48 +80,69 @@
   .nav { display: none; gap: 4px; margin-left: auto; }
   .nav a { color: var(--ink-2); text-decoration: none; font-weight: 650; font-size: 15.5px; padding: 8px 12px; border-radius: 999px; }
   .nav a:hover { color: var(--ink); background: var(--line-2); }
-  .top .btn { margin-left: auto; min-height: 42px; padding: 0 18px; font-size: 15.5px; }
-  @media (min-width: 900px) { .nav { display: flex; } .nav + .btn { margin-left: 8px; } }
+  .top .btn { min-height: 42px; padding: 0 18px; font-size: 15.5px; }
+  @media (min-width: 1080px) { .nav { display: flex; } .top .nav + .reu-btn { margin-left: 8px; } }
 
   /* Héroe */
   .hero { position: relative; overflow: hidden; color: #fff; background: radial-gradient(120% 90% at 85% 0%, var(--hero-a) 0%, var(--hero-b) 45%, var(--hero-c) 100%); }
   .hero::before, .hero::after { content: ""; position: absolute; border-radius: 999px; transform: rotate(-28deg); pointer-events: none; background: linear-gradient(90deg, #14866b 0 50%, #f3c64f 50% 100%); }
   .hero::before { width: 320px; height: 128px; right: -130px; bottom: -40px; opacity: .2; }
   .hero::after { width: 150px; height: 60px; left: -70px; top: 60px; opacity: .14; }
-  .hero > .wrap { position: relative; z-index: 1; display: grid; gap: 40px; padding-top: 40px; padding-bottom: 64px; }
+  /* Cápsulas de colores sueltas en el fondo (las de los empleados) */
+  .confeti { display: none; position: absolute; inset: 0; pointer-events: none; }
+  .confeti i { position: absolute; width: 46px; height: 18px; border-radius: 999px; transform: rotate(-28deg); opacity: .22; background: linear-gradient(90deg, var(--c) 0 52%, #fff 52%); }
+  .confeti i:nth-child(1) { --c: #3466c2; left: 54%; top: 9%; }
+  .confeti i:nth-child(2) { --c: #c23e77; right: 30%; bottom: 7%; }
+  .confeti i:nth-child(3) { --c: #cc6a16; right: 6%; top: 8%; }
+  .confeti i:nth-child(4) { --c: #8a4fbf; left: 2%; top: 5%; width: 34px; height: 14px; }
+  .hero > .wrap { position: relative; z-index: 1; display: grid; gap: 40px; padding-top: 44px; padding-bottom: 68px; }
   .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 13px; border-radius: 999px; background: rgba(255, 255, 255, .14); font-size: 14.5px; font-weight: 700; }
   .eyebrow::before { content: ""; width: 9px; height: 9px; border-radius: 99px; background: var(--yellow); }
-  .hero h1 { margin-top: 16px; font-size: clamp(34px, 8.6vw, 54px); font-weight: 800; letter-spacing: -.03em; line-height: 1.02; }
+  .hero h1 { margin-top: 18px; font-size: clamp(36px, 9vw, 56px); font-weight: 800; letter-spacing: -.035em; line-height: 1.02; }
   .hero h1 em { font-style: normal; color: var(--yellow); }
-  .lead { margin-top: 18px; font-size: clamp(17.5px, 2.3vw, 20px); color: #d9efe7; max-width: 38ch; }
-  .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+  .lead { margin-top: 20px; font-size: clamp(18px, 2.4vw, 21px); color: #d9efe7; max-width: 40ch; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
   .ctas .btn { flex: 1 1 auto; }
   .tel-hero { display: none; }
   /* Con la demostración, sobra "Cómo funciona" en el héroe (está arriba en el menú); sin ella, se ve */
   #demo-hero + .como { display: none; }
-  .fine { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 22px 0 0; padding: 0; list-style: none; font-size: 15px; color: #d9efe7; }
+  .fine { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 24px 0 0; padding: 0; list-style: none; font-size: 15px; color: #d9efe7; }
   .fine li { display: inline-flex; align-items: center; gap: 7px; }
   .fine svg.i { width: 18px; height: 18px; color: var(--yellow); stroke-width: 2.6; }
   @media (min-width: 560px) { .ctas .btn { flex: 0 0 auto; } }
   /* En el teléfono, lo primero: "Mi horario" */
   @media (max-width: 699px) { .tel-hero { display: inline-flex; flex-basis: 100%; min-height: 56px; font-size: 18px; } .entrar-hero { display: none; } }
-  @media (min-width: 960px) { .hero > .wrap { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 48px; padding-top: 72px; padding-bottom: 92px; } }
+  @media (min-width: 960px) { .hero > .wrap { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 48px; padding-top: 80px; padding-bottom: 100px; } }
 
   /* Dibujo del horario (hecho con HTML y CSS; todo inventado) */
   .shot { margin: 0; position: relative; }
-  .tray { padding: 12px; border-radius: 22px; background: #fff; color: #15302a; box-shadow: 0 6px 0 #c9d8d3, 0 12px 0 rgba(0, 0, 0, .12), 0 50px 60px -20px rgba(0, 0, 0, .55); }
+  .tray { position: relative; padding: 12px; border-radius: 22px; background: #fff; color: #15302a; box-shadow: 0 6px 0 #c9d8d3, 0 12px 0 rgba(0, 0, 0, .12), 0 50px 60px -20px rgba(0, 0, 0, .55); }
   .tray-h { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 10px; padding: 2px 4px 10px; font-size: 13px; color: #44605a; font-weight: 700; }
   .tray-h b { color: #15302a; font-size: 15px; }
   .days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; }
   .day { display: grid; grid-template-rows: auto 1fr 1fr; gap: 4px; min-width: 0; }
   .dn { text-align: center; font-size: 11.5px; font-weight: 750; color: #44605a; line-height: 1.15; }
   .dn span { display: block; font-size: 14.5px; color: #15302a; }
-  .cell { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; min-height: 56px; padding: 6px 3px; border-radius: 10px; box-shadow: inset 0 4px 7px rgba(21, 48, 42, .14), inset 0 -2px 0 rgba(255, 255, 255, .9); }
+  .cell { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; min-height: 56px; padding: 6px 3px; border-radius: 10px; box-shadow: inset 0 4px 7px rgba(21, 48, 42, .14), inset 0 -2px 0 rgba(255, 255, 255, .9); transition: box-shadow .3s; }
   .am { background: #f6f3e2; } .pm { background: #e2eaf3; }
   .off { background: repeating-linear-gradient(-45deg, #e6ece9 0 5px, #f4f7f6 5px 10px); font-size: 10.5px; color: #4f655e; font-weight: 700; }
   .cp { display: flex; align-items: center; width: 100%; max-width: 54px; height: 19px; padding-left: 5px; border-radius: 999px; background: linear-gradient(90deg, var(--c) 0 52%, var(--t) 52%); color: #fff; font-size: 11px; font-weight: 800; box-shadow: 0 3px 5px -2px rgba(0, 0, 0, .35); }
   .A { --c: #1e7a5f; --t: #dcf0e7; } .B { --c: #3466c2; --t: #e2e9fa; } .C { --c: #8a4fbf; --t: #f0e5fa; }
-  .D { --c: #56751a; --t: #e9f0d6; } .E { --c: #c23e77; --t: #fadfeb; } .F { --c: #b85c0f; --t: #fce8d4; }
+  .D { --c: #56751a; --t: #e9f0d6; } .E { --c: #c23e77; --t: #fadfeb; } .F { --c: #cc6a16; --t: #fce8d4; }
+  /* El jueves en la mañana: E se enferma y F cubre (se mueve solo con html.anim) */
+  .swap { display: grid; width: 100%; max-width: 54px; }
+  .swap > .cp { grid-area: 1 / 1; transition: opacity .45s, transform .45s; }
+  .swap > .cp + .cp { opacity: 0; transform: translateY(6px); }
+  .tray.enfermo .swap > .cp:first-child { opacity: .35; filter: grayscale(.8); }
+  .tray.cubre .swap > .cp:first-child { opacity: 0; transform: translateY(-6px); }
+  .tray.cubre .swap > .cp + .cp { opacity: 1; transform: none; }
+  .tray.enfermo .cell.mira, .tray.cubre .cell.mira { box-shadow: inset 0 0 0 2px #c2563a, inset 0 4px 7px rgba(21, 48, 42, .14); }
+  .tray.cubre .cell.mira { box-shadow: inset 0 0 0 2px #1e7a5f, inset 0 4px 7px rgba(21, 48, 42, .14); }
+  .aviso { position: absolute; z-index: 2; left: 50%; top: -16px; display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px; border-radius: 999px; background: #15302a; color: #fff; font-size: 12.5px; font-weight: 700; white-space: nowrap; box-shadow: 0 10px 20px -8px rgba(0, 0, 0, .55); opacity: 0; visibility: hidden; transform: translate(-50%, 6px); transition: opacity .35s, transform .35s, visibility .35s; }
+  .aviso i { width: 9px; height: 9px; border-radius: 99px; background: #f08a6c; flex: none; }
+  .aviso .b { display: none; }
+  .tray.enfermo .aviso, .tray.cubre .aviso { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+  .tray.cubre .aviso .a { display: none; } .tray.cubre .aviso .b { display: inline; } .tray.cubre .aviso i { background: #7fd6b5; }
   .legend { display: flex; flex-wrap: wrap; gap: 4px 14px; padding: 10px 4px 0; font-size: 12px; color: #44605a; }
   .legend span { display: inline-flex; align-items: center; gap: 6px; }
   .legend i { width: 11px; height: 11px; border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .1); }
@@ -128,42 +162,84 @@
   .turno b { grid-row: span 2; display: grid; place-items: center; min-width: 26px; font-size: 10px; color: #0f6b57; line-height: 1.1; text-align: center; }
   .turno small { color: #44605a; font-size: 9.5px; }
   .tot { padding: 2px 9px 9px; font-weight: 700; color: #0f6b57; }
-  @media (max-width: 400px) { .tray { padding: 10px 8px; } .days { gap: 4px; } .cp { padding-left: 4px; font-size: 10.5px; } .phone { width: 124px; } .ok { padding: 10px 11px; font-size: 12.5px; } }
+  @media (max-width: 400px) { .tray { padding: 10px 8px; } .days { gap: 4px; } .cp { padding-left: 4px; font-size: 10.5px; } .phone { width: 124px; } .ok { padding: 10px 11px; font-size: 12.5px; } .aviso { font-size: 11.5px; padding: 5px 10px; } }
 
   /* Secciones */
-  .s { padding: 64px 0; }
+  .s { padding: 72px 0; }
   .s.alt { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  @media (min-width: 960px) { .s { padding: 92px 0; } }
-  .kicker { display: inline-block; margin-bottom: 10px; font-size: 15px; font-weight: 750; color: var(--green-text); }
-  .s h2 { font-size: clamp(29px, 5.6vw, 44px); font-weight: 800; letter-spacing: -.028em; max-width: 24ch; }
-  .sub { margin-top: 14px; font-size: 18.5px; color: var(--ink-2); max-width: 60ch; }
-  .grid { display: grid; gap: 16px; margin-top: 34px; }
+  @media (min-width: 960px) { .s { padding: 104px 0; } }
+  .kicker { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 12px; font-size: 15px; font-weight: 750; color: var(--green-text); }
+  .kicker::before { content: ""; width: 22px; height: 9px; border-radius: 99px; background: linear-gradient(90deg, var(--green) 0 50%, var(--yellow) 50%); transform: rotate(-20deg); }
+  .s h2 { font-size: clamp(31px, 6vw, 50px); font-weight: 800; letter-spacing: -.03em; max-width: 22ch; }
+  .sub { margin-top: 16px; font-size: 19px; color: var(--ink-2); max-width: 52ch; }
+  .grid { display: grid; gap: 18px; margin-top: 40px; }
   @media (min-width: 640px) { .grid.g4, .grid.g3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 1000px) { .grid.g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } .grid.g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  .card { padding: 24px 22px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); }
+  .card { position: relative; padding: 26px 22px 24px; border-radius: 20px; background: var(--card); border: 1px solid var(--line); box-shadow: var(--lift); transition: transform .2s, box-shadow .2s; }
+  .card.acc { border-top: 5px solid var(--c); }
+  .card.acc:hover { transform: translateY(-3px); }
   .s.alt .card { background: var(--paper); }
-  .card h3 { font-size: 20px; font-weight: 780; }
+  .card h3 { font-size: 21px; font-weight: 780; }
   .card p { margin-top: 8px; color: var(--ink-2); font-size: 16.5px; }
-  .ic { display: grid; place-items: center; width: 48px; height: 48px; margin-bottom: 16px; border-radius: 14px; background: var(--green-soft); color: var(--green-text); }
+  .ic { display: grid; place-items: center; width: 50px; height: 50px; margin-bottom: 18px; border-radius: 15px; background: var(--green-soft); color: var(--green-text); }
+  .acc .ic { background: var(--c-soft); color: var(--c-ink); }
+
+  /* En el teléfono */
+  .tel-s { display: grid; gap: 40px; align-items: center; }
+  @media (min-width: 900px) { .tel-s { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 56px; } }
+  .ve { display: grid; gap: 14px; margin: 32px 0 0; padding: 0; list-style: none; }
+  .ve li { display: flex; align-items: center; gap: 14px; font-size: 17.5px; }
+  .ve .ic { margin: 0; flex: none; width: 44px; height: 44px; border-radius: 13px; }
+  .ve svg.i { width: 22px; height: 22px; }
+  .pronto { margin-top: 30px; padding: 20px 20px 18px; border-radius: 18px; background: var(--sunk); border: 1px dashed var(--line); }
+  .s.alt .pronto { background: var(--paper); }
+  .pronto h3 { font-size: 18px; font-weight: 780; }
+  .pronto ul { display: grid; gap: 12px; margin: 14px 0 0; padding: 0; list-style: none; }
+  .pronto li { display: grid; justify-items: start; gap: 5px; font-size: 16px; color: var(--ink-2); }
+  .pronto li b { color: var(--ink); font-weight: 700; }
+  .pronto li small { font-size: 15px; color: var(--muted); }
+  .tag { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 999px; background: var(--yellow); color: #15302a; font-size: 13px; font-weight: 800; letter-spacing: .01em; white-space: nowrap; }
+  /* El teléfono grande (dibujo, inventado) */
+  .tel-fig { margin: 0; display: grid; justify-items: center; }
+  .movil { width: min(100%, 290px); padding: 10px; border-radius: 40px; background: #15302a; box-shadow: 0 30px 60px -24px rgba(0, 0, 0, .55), inset 0 0 0 2px #2a4a41; }
+  .movil .screen { border-radius: 31px; font-size: 13px; }
+  .movil .scr-h { padding: 22px 16px 12px; }
+  .movil .scr-h b { font-size: 17px; }
+  .tabs { display: flex; gap: 4px; margin: 10px 12px 2px; padding: 3px; border-radius: 999px; background: #dfe8e4; font-size: 12px; font-weight: 700; }
+  .tabs span { flex: 1; text-align: center; padding: 5px 0; border-radius: 999px; color: #44605a; }
+  .tabs .on { background: #fff; color: #15302a; box-shadow: 0 1px 2px rgba(0, 0, 0, .12); }
+  .sum { display: flex; align-items: baseline; gap: 8px; padding: 10px 16px 4px; }
+  .sum b { font-size: 26px; color: #0f6b57; font-variant-numeric: tabular-nums; }
+  .sum span { color: #44605a; font-size: 12.5px; }
+  .mt { display: grid; gap: 7px; padding: 8px 10px 14px; }
+  .mt > div { display: grid; grid-template-columns: 38px 1fr; gap: 2px 10px; padding: 9px 10px; border-radius: 14px; background: #fff; }
+  .mt .f { grid-row: span 3; display: grid; place-content: center; text-align: center; color: #0f6b57; font-weight: 800; line-height: 1.05; font-size: 11px; }
+  .mt .f strong { display: block; font-size: 18px; }
+  .mt .t { font-weight: 750; }
+  .mt .h { color: #44605a; font-size: 12px; }
+  .mt .con { display: flex; align-items: center; gap: 5px; color: #44605a; font-size: 11.5px; }
+  .mt .con .cp { width: 40px; height: 16px; font-size: 10px; }
+  .mt .enc { grid-column: 2; display: inline-block; justify-self: start; margin-top: 3px; padding: 1px 8px; border-radius: 99px; background: #f8edcc; color: #6b4d00; font-size: 11px; font-weight: 750; }
 
   /* Pasos */
-  .steps { counter-reset: paso; }
-  .num { display: inline-flex; width: 56px; height: 28px; margin-bottom: 16px; border-radius: 999px; overflow: hidden; font-weight: 800; font-size: 15px; transform: rotate(-12deg); }
+  .num { display: inline-flex; width: 58px; height: 30px; margin-bottom: 18px; border-radius: 999px; overflow: hidden; font-weight: 800; font-size: 16px; transform: rotate(-12deg); }
   .num b { flex: 1; display: grid; place-items: center; background: #0f6b57; color: #fff; }
   .num i { flex: 1; background: #f3c64f; }
+  .acc .num b { background: var(--c-solid); }
+  .acc .num i { background: var(--c); opacity: .35; }
 
   /* Para quién */
   .who .card { display: flex; gap: 16px; align-items: flex-start; }
   .who .ic { margin: 0; flex: none; }
-  .aside { margin-top: 20px; color: var(--ink-2); font-size: 16px; }
+  .aside { margin-top: 24px; color: var(--ink-2); font-size: 16.5px; }
 
   /* Entrar */
-  .entrar { background: radial-gradient(120% 120% at 0% 0%, color-mix(in srgb, var(--green) 12%, var(--card)) 0%, var(--card) 60%); }
-  .doors { display: flex; flex-wrap: wrap; gap: 14px; max-width: 960px; margin-top: 30px; }
+  .entrar { background: radial-gradient(120% 120% at 0% 0%, color-mix(in srgb, var(--green) 12%, var(--paper)) 0%, var(--paper) 60%); }
+  .doors { display: flex; flex-wrap: wrap; gap: 14px; max-width: 960px; margin-top: 32px; }
   .door { flex: 1 1 100%; }
   @media (min-width: 760px) { .door { flex-basis: 320px; } .door.demo { flex-basis: 100%; } }
   .door { display: flex; align-items: center; gap: 16px; min-height: 92px; padding: 20px 22px; border-radius: 20px; text-decoration: none; color: var(--ink); background: var(--paper); border: 2px solid var(--line); box-shadow: var(--shadow); transition: transform .15s, border-color .15s; }
-  .door:hover { transform: translateY(-2px); border-color: var(--green); }
+  .door:hover { transform: translateY(-2px); border-color: var(--c, var(--green)); }
   .door .ic { margin: 0; flex: none; width: 52px; height: 52px; }
   .door b { display: block; font-size: 19px; line-height: 1.2; }
   .door span span { display: block; margin-top: 3px; color: var(--muted); font-size: 15.5px; }
@@ -173,9 +249,9 @@
   .door.main span span { color: inherit; opacity: .9; }
   .door.main .ic { background: rgba(255, 255, 255, .16); color: inherit; }
   .door.main:hover { background: var(--green-2); border-color: var(--green-2); }
-  .door.demo { border-style: dashed; border-color: var(--green); background: var(--card); min-height: 80px; }
-  .door.demo b { color: var(--green-text); }
-  .nuevo { margin-top: 22px; color: var(--ink-2); font-size: 16px; }
+  .door.demo { border-style: dashed; border-color: var(--c); min-height: 80px; }
+  .door.demo b { color: var(--c-ink); }
+  .nuevo { margin-top: 24px; color: var(--ink-2); font-size: 16.5px; }
   .nuevo a { font-weight: 700; }
 
   /* Pie */
@@ -185,7 +261,61 @@
   .contacto a { font-weight: 700; }
   .legal { font-size: 14.5px; color: var(--muted); max-width: 72ch; }
 
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+  /* Tú lo manejas: las pantallas de la app */
+  .tools { display: grid; gap: 14px; margin: 40px 0 0; padding: 0; list-style: none; }
+  @media (min-width: 600px) { .tools { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 960px) { .tools { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (min-width: 1120px) { .tools { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .tool { display: flex; gap: 14px; align-items: flex-start; padding: 18px 18px 18px 16px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); border-left: 5px solid var(--c); box-shadow: var(--lift); }
+  .tool .ic { margin: 0; flex: none; width: 42px; height: 42px; border-radius: 12px; }
+  .tool .ic svg.i { width: 22px; height: 22px; }
+  .tool b { display: block; font-size: 17.5px; line-height: 1.25; }
+  .tool span span { display: block; margin-top: 3px; color: var(--ink-2); font-size: 15.5px; line-height: 1.4; }
+  .k-gris { --c: #6b7079; } .k-cafe { --c: #8c5a3c; }
+
+  /* Coordina tu reunión */
+  .reunion { background: radial-gradient(110% 120% at 100% 0%, color-mix(in srgb, var(--yellow) 18%, var(--card)) 0%, var(--card) 55%); }
+  .reu { display: grid; gap: 36px; }
+  @media (min-width: 960px) { .reu { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; } }
+  .reu .ctas { margin-top: 30px; }
+  .btn-line { color: var(--green-text); box-shadow: inset 0 0 0 2px currentColor; background: transparent; }
+  .btn-line:hover { background: var(--green-soft); }
+  .pasos4 { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; counter-reset: p4; }
+  .pasos4 li { counter-increment: p4; display: grid; grid-template-columns: 44px 1fr; gap: 2px 14px; align-items: center; padding: 16px 18px; border-radius: 18px; background: var(--paper); border: 1px solid var(--line); }
+  .pasos4 li::before { content: counter(p4); grid-row: span 2; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px; background: var(--c-solid); color: #fff; font-weight: 800; font-size: 18px; }
+  .pasos4 b { font-size: 18px; }
+  .pasos4 span { color: var(--ink-2); font-size: 15.5px; }
+  .precio { margin-top: 18px; display: inline-flex; padding: 8px 14px; border-radius: 12px; background: var(--paper); border: 1px solid var(--line); font-weight: 700; }
+  .video { margin: 28px 0 0; }
+  .video video { display: block; width: 100%; height: auto; border-radius: 18px; background: #0b2a23; }
+  .top .reu-btn { margin-left: auto; }
+  @media (max-width: 479px) { .top .reu-btn { width: 42px; padding: 0; } .top .reu-btn .txt { display: none; } }
+  @media (min-width: 480px) { .top .reu-btn svg { display: none; } }
+
+  /* Movimiento: solo con html.anim (lo pone el script del final) y sin "reducir movimiento" */
+  @media (prefers-reduced-motion: no-preference) {
+    .anim .rv { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1); transition-delay: calc(var(--i, 0) * 90ms); }
+    .anim .rv.vis { opacity: 1; transform: none; }
+    .anim .days .day:nth-child(1) { --d: 0; } .anim .days .day:nth-child(2) { --d: 1; } .anim .days .day:nth-child(3) { --d: 2; }
+    .anim .days .day:nth-child(4) { --d: 3; } .anim .days .day:nth-child(5) { --d: 4; } .anim .days .day:nth-child(6) { --d: 5; } .anim .days .day:nth-child(7) { --d: 6; }
+    .anim .am > .cp:nth-child(1) { --s: 0; } .anim .am > :nth-child(2) { --s: 1; } .anim .pm > .cp:nth-child(1) { --s: 2; } .anim .pm > .cp:nth-child(2) { --s: 3; }
+    .anim .days .cp, .anim .days .swap { animation: entra .5s cubic-bezier(.2, .9, .3, 1.3) both; animation-delay: calc(.25s + (var(--d, 0) * 4 + var(--s, 0)) * 26ms); }
+    .anim .swap > .cp { animation: none; }
+    .anim .ok li { animation: aparece .4s ease both; }
+    .anim .ok li:nth-child(1) { animation-delay: 1.1s; } .anim .ok li:nth-child(2) { animation-delay: 1.3s; } .anim .ok li:nth-child(3) { animation-delay: 1.5s; }
+    .anim .phone { animation: sube .8s cubic-bezier(.2, .7, .2, 1) .5s both; }
+    .anim .confeti i { animation: flota 9s ease-in-out infinite alternate; }
+    .anim .confeti i:nth-child(2) { animation-duration: 11s; animation-delay: -3s; }
+    .anim .confeti i:nth-child(3) { animation-duration: 13s; animation-delay: -6s; }
+    .anim .confeti i:nth-child(4) { animation-duration: 10s; animation-delay: -2s; }
+    .anim .card.acc .ic { transition: transform .25s; }
+    .anim .card.acc:hover .ic { transform: rotate(-8deg) scale(1.06); }
+  }
+  @keyframes entra { from { opacity: 0; transform: scale(.4); } to { opacity: 1; transform: none; } }
+  @keyframes aparece { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: none; } }
+  @keyframes sube { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+  @keyframes flota { from { transform: rotate(-28deg) translate(0, 0); } to { transform: rotate(-20deg) translate(14px, -18px); } }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
 </style>
 </head>
 <body>
@@ -196,9 +326,11 @@
     <a class="brand" href="#inicio" aria-label="HorariosPR, inicio"><span class="logo" aria-hidden="true"><i></i><i></i></span>HorariosPR</a>
     <nav class="nav" aria-label="Secciones">
       <a href="#beneficios">Beneficios</a>
+      <a href="#manejas">Tú lo manejas</a>
       <a href="#como">Cómo funciona</a>
       <a href="#para-quien">Para quién</a>
     </nav>
+    <a class="btn btn-line reu-btn" href="#reunion" aria-label="Coordina tu reunión"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg><span class="txt">Coordina tu reunión</span></a>
     <a class="btn btn-green" href="#entrar">Entrar</a>
   </div>
 </header>
@@ -206,33 +338,45 @@
 <main id="contenido">
 
 <section class="hero" id="inicio" aria-labelledby="h-hero">
+  <div class="confeti" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <div class="wrap">
     <div>
       <span class="eyebrow">Horarios de turnos · Puerto Rico</span>
-      <h1 id="h-hero">Tu horario de turnos, listo y <em>validado con las reglas de tu negocio.</em></h1>
-      <p class="lead">Y en el teléfono de cada empleado. Nosotros configuramos tu local; tú lo apruebas y lo publicas.</p>
+      <h1 id="h-hero">El horario de tu negocio, armado y <em>revisado con tus reglas.</em></h1>
+      <p class="lead">Te lo dejamos montado, tú lo manejas y cada empleado lo ve en su teléfono.</p>
       <div class="ctas">
         <a class="btn btn-sun tel-hero" href="movil.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>Mi horario en el teléfono</a>
         <a class="btn btn-sun entrar-hero" href="#entrar">Entrar<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ghost" href="#reunion"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Coordina tu reunión</a>
         <a class="btn btn-ghost" id="demo-hero" href="escritorio/?demo" data-escritorio>Ver la demostración</a>
         <a class="btn btn-ghost como" href="#como">Cómo funciona</a>
       </div>
       <ul class="fine">
-        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Apoyo en español</li>
-        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Te lo dejamos configurado</li>
-        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Tú apruebas antes de publicar</li>
+        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Te ayudamos en español</li>
+        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Lo cambias cuando quieras</li>
+        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Lo publicas cuando tú digas</li>
       </ul>
+      <!-- VIDEO (apagado; se activa cuando haya un video corto de la app). El .mp4 y el póster van en public-movil/
+           (vite los copia a dist-movil y scripts/sitio.mjs a la raíz del sitio). Solo datos de ejemplo en el video. Para activarlo, quita este comentario:
+      <figure class="video">
+        <video controls muted playsinline preload="none" poster="video-portada.jpg" width="1280" height="720" aria-describedby="video-txt">
+          <source src="video-portada.mp4" type="video/mp4">
+        </video>
+        <figcaption id="video-txt" class="sr">Video corto de HorariosPR con la Farmacia del Ejemplo: armar el mes, revisar y publicar.</figcaption>
+      </figure>
+      -->
     </div>
 
     <figure class="shot">
       <figcaption class="sr">Dibujo de ejemplo con datos inventados: la semana de la Farmacia del Ejemplo, con cada empleado como una cápsula en su turno de mañana o de tarde; una nota que dice que el horario cumple con la cobertura completa, el tope de horas y los días seguidos; y un teléfono con los turnos de la semana del Empleado A.</figcaption>
-      <div class="tray" aria-hidden="true">
+      <div class="tray" id="bandeja" aria-hidden="true">
+        <span class="aviso"><i></i><span class="a">Jue 5: E está enfermo/a</span><span class="b">F puede cubrir sin romper reglas</span></span>
         <div class="tray-h"><b>Farmacia del Ejemplo</b><span>Semana del 2 al 8</span></div>
         <div class="days">
           <div class="day"><div class="dn">Lun<span>2</span></div><div class="cell am"><span class="cp A">A</span><span class="cp B">B</span></div><div class="cell pm"><span class="cp C">C</span><span class="cp D">D</span></div></div>
           <div class="day"><div class="dn">Mar<span>3</span></div><div class="cell am"><span class="cp A">A</span><span class="cp E">E</span></div><div class="cell pm"><span class="cp F">F</span><span class="cp C">C</span></div></div>
           <div class="day"><div class="dn">Mié<span>4</span></div><div class="cell am"><span class="cp B">B</span><span class="cp F">F</span></div><div class="cell pm"><span class="cp D">D</span><span class="cp E">E</span></div></div>
-          <div class="day"><div class="dn">Jue<span>5</span></div><div class="cell am"><span class="cp E">E</span><span class="cp C">C</span></div><div class="cell pm"><span class="cp A">A</span><span class="cp B">B</span></div></div>
+          <div class="day"><div class="dn">Jue<span>5</span></div><div class="cell am mira"><span class="swap"><span class="cp E">E</span><span class="cp F">F</span></span><span class="cp C">C</span></div><div class="cell pm"><span class="cp A">A</span><span class="cp B">B</span></div></div>
           <div class="day"><div class="dn">Vie<span>6</span></div><div class="cell am"><span class="cp D">D</span><span class="cp F">F</span></div><div class="cell pm"><span class="cp C">C</span><span class="cp E">E</span></div></div>
           <div class="day"><div class="dn">Sáb<span>7</span></div><div class="cell am"><span class="cp A">A</span><span class="cp D">D</span></div><div class="cell pm"><span class="cp B">B</span><span class="cp F">F</span></div></div>
           <div class="day"><div class="dn">Dom<span>8</span></div><div class="cell am"><span class="cp C">C</span><span class="cp E">E</span></div><div class="cell pm off">Cerrado</div></div>
@@ -267,53 +411,123 @@
 
 <section class="s" id="beneficios" aria-labelledby="h-ben">
   <div class="wrap">
-    <span class="kicker">Por qué HorariosPR</span>
-    <h2 id="h-ben">Lo pesado del horario, resuelto.</h2>
-    <p class="sub">Menos horas haciendo el horario, menos llamadas de «yo no sabía» y las reglas de tu negocio por escrito.</p>
+    <div class="rv">
+      <span class="kicker">Por qué HorariosPR</span>
+      <h2 id="h-ben">Menos tiempo cuadrando el horario.</h2>
+      <p class="sub">Y menos llamadas de «yo no sabía que me tocaba».</p>
+    </div>
     <div class="grid g4">
-      <article class="card">
+      <article class="card acc k-verde rv" style="--i:0">
         <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span>
-        <h3>Validado con tus reglas</h3>
-        <p>Cada cambio se revisa al momento: cobertura, tope de horas, días seguidos, días libres. Si algo no cumple, te lo marca.</p>
+        <h3>Revisado con tus reglas</h3>
+        <p>Cada vez que mueves a alguien, revisa la cobertura, el tope de horas, los días seguidos y los libres.</p>
       </article>
-      <article class="card">
+      <article class="card acc k-azul rv" style="--i:1">
         <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span>
         <h3>En el teléfono de cada empleado</h3>
-        <p>Cada quien ve sus turnos, con quién trabaja y el horario del local. Sin fotos del horario ni mensajes uno por uno.</p>
+        <p>Cada quien entra con su correo y ve sus turnos y con quién le toca.</p>
       </article>
-      <article class="card">
+      <article class="card acc k-coral rv" style="--i:2">
         <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19.5c.6-3 2.8-4.8 5.5-4.8s4.9 1.8 5.5 4.8"/><path d="M15.5 6.5h5.5m0 0-2-2m2 2-2 2M21 12.5h-5.5m0 0 2-2m-2 2 2 2"/></svg></span>
         <h3>Quién cubre si alguien falta</h3>
-        <p>Tocas el turno de quien no viene y te propone quién puede cubrir sin romper tus reglas.</p>
+        <p>Tocas el turno, marcas «Está enfermo/a» y te dice quién puede cubrir sin romper tus reglas.</p>
       </article>
-      <article class="card">
+      <article class="card acc k-morado rv" style="--i:3">
         <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2.8h6V4M9 13l2 2 4-4"/></svg></span>
         <h3>Te lo dejamos listo</h3>
-        <p>Configuramos tu local por ti. Tú apruebas el horario antes de publicarlo, y te ayudamos en español.</p>
+        <p>Nosotros montamos tu local. Si te trancas, nos llamas o nos escribes y te ayudamos en español.</p>
       </article>
     </div>
   </div>
 </section>
 
+<section class="s alt" id="telefono" aria-labelledby="h-tel">
+  <div class="wrap tel-s">
+    <div>
+      <div class="rv">
+        <span class="kicker">En el teléfono</span>
+        <h2 id="h-tel">Así lo ve cada empleado.</h2>
+        <p class="sub">Sin bajar nada: abre la página y entra con su correo.</p>
+      </div>
+      <ul class="ve">
+        <li class="acc k-azul rv" style="--i:0"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></span>Sus turnos de la semana o del mes, con las horas.</li>
+        <li class="acc k-rosa rv" style="--i:1"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9.5" r="2.4"/><path d="M3.5 19c.6-2.8 2.7-4.4 5.5-4.4s4.9 1.6 5.5 4.4M15 14.8c2.3-.3 4.6.9 5.3 3.7"/></svg></span>Con quién le toca y cuándo le toca encargarse.</li>
+        <li class="acc k-teal rv" style="--i:2"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M4 21V9l8-5.5L20 9v12"/><path d="M9.5 21v-5.5h5V21"/></svg></span>El local completo, por día o por semana.</li>
+        <li class="acc k-ocre rv" style="--i:3"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M2 8.5a15 15 0 0 1 20 0M5.5 12a10 10 0 0 1 13 0M9 15.5a5 5 0 0 1 6 0"/><path d="M3 3l18 18"/></svg></span>Sin señal, lo último que abrió.</li>
+      </ul>
+      <div class="pronto rv">
+        <h3>Lo que viene</h3>
+        <ul>
+          <li><span class="tag">Próximamente</span><b>Aviso en el teléfono cuando publicas o le cambias un turno.</b></li>
+          <li><span class="tag">Próximamente</span><b>El horario por WhatsApp a todos de una vez.</b><small>Hoy «Enviar horario» abre WhatsApp con el mensaje listo, una persona a la vez.</small></li>
+          <li><span class="tag">Próximamente</span><b>La app en App Store y Google Play, con el aviso de «mañana trabajas».</b></li>
+        </ul>
+      </div>
+    </div>
+    <figure class="tel-fig rv" style="--i:1">
+      <figcaption class="sr">Dibujo de ejemplo con datos inventados: el teléfono del Empleado B con sus cuatro turnos de la semana, 32 horas, con quién trabaja en cada uno y los dos días en que le toca encargarse.</figcaption>
+      <div class="movil" aria-hidden="true">
+        <div class="screen">
+          <div class="scr-h"><b>Mi horario</b><span>Empleado B · Farmacia del Ejemplo</span></div>
+          <div class="tabs"><span class="on">Mi horario</span><span>El local</span></div>
+          <div class="sum"><b id="horas">32 h</b><span>esta semana · 4 turnos</span></div>
+          <div class="mt">
+            <div><span class="f">Lun<strong>2</strong></span><span class="t">Mañana</span><span class="h">7:00 a 3:00</span><span class="con">Con <span class="cp A">A</span></span></div>
+            <div><span class="f">Mié<strong>4</strong></span><span class="t">Mañana</span><span class="h">7:00 a 3:00</span><span class="con">Con <span class="cp F">F</span></span><span class="enc">Te toca encargarte</span></div>
+            <div><span class="f">Jue<strong>5</strong></span><span class="t">Tarde</span><span class="h">1:00 a 9:00</span><span class="con">Con <span class="cp A">A</span></span></div>
+            <div><span class="f">Sáb<strong>7</strong></span><span class="t">Tarde</span><span class="h">1:00 a 9:00</span><span class="con">Con <span class="cp F">F</span></span><span class="enc">Te toca encargarte</span></div>
+          </div>
+        </div>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<section class="s" id="manejas" aria-labelledby="h-man">
+  <div class="wrap">
+    <div class="rv">
+      <span class="kicker">Tú lo manejas</span>
+      <h2 id="h-man">Te lo dejamos montado y tú lo manejas.</h2>
+      <p class="sub">Después de la instalación, cambias lo que quieras desde la computadora, sin esperar por nosotros.</p>
+    </div>
+    <ul class="tools">
+      <li class="tool acc k-verde rv" style="--i:0"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4M8 14.5h3M13 14.5h3"/></svg></span><span><b>Horario</b><span>Cambia a alguien con un toque o arrastrando su cápsula.</span></span></li>
+      <li class="tool acc k-azul rv" style="--i:1"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4M12 13v5M9.5 15.5h5"/></svg></span><span><b>Crear horario</b><span>Arma el mes que viene con tus semanas modelo o en automático.</span></span></li>
+      <li class="tool acc k-coral rv" style="--i:2"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c.6-2.8 2.7-4.4 5.5-4.4s4.9 1.6 5.5 4.4M17 8v6M14 11h6"/></svg></span><span><b>Equipo</b><span>Añade gente y ajusta sus horas, días libres y quién no cierra.</span></span></li>
+      <li class="tool acc k-morado rv" style="--i:3"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg></span><span><b>Turnos</b><span>Horas de entrada y salida, y cuánta gente va en cada turno.</span></span></li>
+      <li class="tool acc k-ocre rv" style="--i:0"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><span><b>Reglas</b><span>Enciende o apaga cada regla y cambia los topes.</span></span></li>
+      <li class="tool acc k-teal rv" style="--i:1"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="4" width="7" height="7" rx="1.5"/><rect x="13.5" y="4" width="7" height="7" rx="1.5"/><rect x="3.5" y="14" width="7" height="7" rx="1.5"/><rect x="13.5" y="14" width="7" height="7" rx="1.5"/></svg></span><span><b>Patrones</b><span>Guarda semanas modelo para no empezar cada mes de cero.</span></span></li>
+      <li class="tool acc k-rosa rv" style="--i:2"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4M10 13.5l4 4M14 13.5l-4 4"/></svg></span><span><b>Ausencias</b><span>Vacaciones, citas, días libres y enfermedad, y el horario los respeta.</span></span></li>
+      <li class="tool acc k-oliva rv" style="--i:3"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></span><span><b>Revisar</b><span>¿Lo haces en Excel? Súbelo y te dice errores, huecos y horas extra probables.</span></span></li>
+      <li class="tool acc k-naranja rv" style="--i:0"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5"/><path d="M5 14v4.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V14"/></svg></span><span><b>Publicar</b><span>Cada mes publicado queda guardado como Versión 1, 2, 3.</span></span></li>
+      <li class="tool acc k-indigo rv" style="--i:1"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></span><span><b>Deshacer</b><span>Ctrl+Z deshace lo último que cambiaste.</span></span></li>
+      <li class="tool acc k-gris rv" style="--i:2"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M7 9V3.5h10V9"/><rect x="3.5" y="9" width="17" height="8" rx="2"/><path d="M7 14h10v6.5H7z"/></svg></span><span><b>Imprimir o Excel</b><span>Una hoja tamaño carta o un Excel con colores.</span></span></li>
+      <li class="tool acc k-cafe rv" style="--i:3"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M7 20v-6M12 20V7M17 20v-9"/></svg></span><span><b>Informe para el dueño</b><span>Horas del mes, horas extra (mínimo) y el reparto de domingos.</span></span></li>
+    </ul>
+  </div>
+</section>
+
 <section class="s alt" id="como" aria-labelledby="h-como">
   <div class="wrap">
-    <span class="kicker">Cómo funciona</span>
-    <h2 id="h-como">De la reunión al horario publicado, en tres pasos.</h2>
+    <div class="rv">
+      <span class="kicker">Cómo funciona</span>
+      <h2 id="h-como">De la primera reunión al horario publicado.</h2>
+    </div>
     <ol class="grid g3 steps" style="list-style:none;padding:0;margin-bottom:0">
-      <li class="card">
+      <li class="card acc k-teal rv" style="--i:0">
         <span class="num" aria-hidden="true"><b>1</b><i></i></span>
         <h3>Nos reunimos</h3>
-        <p>Nos cuentas cómo trabajas: tus turnos, cuántas personas hacen falta y las reglas de siempre, como quién no cierra o a quién le toca el domingo.</p>
+        <p>Nos cuentas cuánta gente hace falta, quién no cierra y a quién le toca el domingo.</p>
       </li>
-      <li class="card">
+      <li class="card acc k-ocre rv" style="--i:1">
         <span class="num" aria-hidden="true"><b>2</b><i></i></span>
-        <h3>Configuramos tu local</h3>
-        <p>Cargamos empleados, turnos, ausencias y feriados. Tus reglas quedan por escrito en un Libro de reglas que tú apruebas.</p>
+        <h3>Montamos tu local</h3>
+        <p>Entramos el equipo, los turnos, las vacaciones y los feriados. Tus reglas quedan en un Libro de reglas que tú firmas.</p>
       </li>
-      <li class="card">
+      <li class="card acc k-rosa rv" style="--i:2">
         <span class="num" aria-hidden="true"><b>3</b><i></i></span>
         <h3>Te lo entregamos listo</h3>
-        <p>El horario armado y revisado con tus reglas. Lo publicas y cada empleado lo ve en su teléfono.</p>
+        <p>Te damos el mes armado y revisado. Lo publicas y cada empleado lo ve en su teléfono.</p>
       </li>
     </ol>
   </div>
@@ -321,37 +535,64 @@
 
 <section class="s" id="para-quien" aria-labelledby="h-quien">
   <div class="wrap">
-    <span class="kicker">Para quién</span>
-    <h2 id="h-quien">Para negocios donde el turno importa.</h2>
+    <div class="rv">
+      <span class="kicker">Para quién</span>
+      <h2 id="h-quien">Para negocios que trabajan por turnos.</h2>
+    </div>
     <div class="grid g3 who">
-      <article class="card">
+      <article class="card acc k-indigo rv" style="--i:0">
         <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M9.5 3.5h5v6h6v5h-6v6h-5v-6h-6v-5h6z"/></svg></span>
-        <div><h3>Farmacias</h3><p>De comunidad o cadenas pequeñas: alguien a cargo en cada turno, mañanas y tardes cubiertas, y domingos que rotan.</p></div>
+        <div><h3>Farmacias</h3><p>Alguien a cargo en cada turno, mañanas y tardes cubiertas y los domingos en rotación.</p></div>
       </article>
-      <article class="card">
+      <article class="card acc k-oliva rv" style="--i:1">
         <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M4 21V9l8-5.5L20 9v12"/><path d="M9.5 21v-5.5h5V21"/><path d="M12 8v4.5M9.8 10.2h4.4"/></svg></span>
-        <div><h3>Dispensarios</h3><p>Cada turno con la gente que hace falta y alguien a cargo, sin hacer cuentas a mano.</p></div>
+        <div><h3>Dispensarios</h3><p>La gente que hace falta en cada turno, con alguien a cargo, sin sacar cuentas a mano.</p></div>
       </article>
-      <article class="card">
+      <article class="card acc k-naranja rv" style="--i:2">
         <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg></span>
         <div><h3>Negocios con turnos</h3><p>Tiendas, oficinas y servicios con turnos de día que se arman cada semana o cada mes.</p></div>
       </article>
     </div>
-    <p class="aside">¿Tienes turnos de noche o abres todo el día? Escríbenos y lo vemos en la reunión.</p>
+    <p class="aside rv">¿Tienes turnos de noche o abres las 24 horas? Escríbenos y lo hablamos en la reunión.</p>
   </div>
 </section>
 
-<section class="s alt entrar" id="entrar" aria-labelledby="h-entrar">
+<section class="s alt reunion" id="reunion" aria-labelledby="h-reu">
+  <div class="wrap reu">
+    <div class="rv">
+      <span class="kicker">Para empezar</span>
+      <h2 id="h-reu">Coordina tu reunión.</h2>
+      <p class="sub">Escríbenos con los datos de tu negocio y te contestamos para buscar fecha.</p>
+      <div class="ctas">
+        <a class="btn btn-green" href="mailto:HorariosPR@gmail.com?subject=Quiero%20coordinar%20una%20reuni%C3%B3n&amp;body=Hola%2C%20quiero%20coordinar%20una%20reuni%C3%B3n%20para%20HorariosPR.%0D%0A%0D%0ANombre%20del%20negocio%3A%20%0D%0ATipo%20de%20negocio%20(farmacia%2C%20dispensario%20u%20otro)%3A%20%0D%0ACu%C3%A1ntos%20locales%3A%20%0D%0ACu%C3%A1ntos%20empleados%3A%20%0D%0ATel%C3%A9fono%3A%20%0D%0A"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>Escríbenos para coordinar</a>
+        <a class="btn btn-line" href="tel:+17879201210"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h3.5l1.5 4-2 1.5a11 11 0 0 0 6.5 6.5l1.5-2 4 1.5V19a1.5 1.5 0 0 1-1.5 1.5A16.5 16.5 0 0 1 3.5 5.5 1.5 1.5 0 0 1 5 4z"/></svg>Llámanos: 787-920-1210</a>
+      </div>
+      <!-- PRECIO (apagado: Fernando decide si se muestra). Para mostrarlo, quita este comentario:
+      <p class="precio">Desde $49 al mes por local · instalación aparte · más IVU según aplique</p>
+      -->
+    </div>
+    <ol class="pasos4">
+      <li class="acc k-azul rv" style="--i:0"><b>Nos escribes</b><span>El correo ya trae lo que necesitamos saber.</span></li>
+      <li class="acc k-coral rv" style="--i:1"><b>Nos reunimos</b><span>Apuntamos tus turnos y tus reglas, como quién abre y quién cierra.</span></li>
+      <li class="acc k-morado rv" style="--i:2"><b>Te configuramos el local</b><span>Equipo, turnos, reglas y el primer mes armado.</span></li>
+      <li class="acc k-verde rv" style="--i:3"><b>Empiezas</b><span>Publicas y tu equipo lo ve en el teléfono.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="s entrar" id="entrar" aria-labelledby="h-entrar">
   <div class="wrap">
-    <span class="kicker">Entrar</span>
-    <h2 id="h-entrar">Entra a HorariosPR.</h2>
-    <p class="sub">Escoge dónde lo vas a usar.</p>
+    <div class="rv">
+      <span class="kicker">Entrar</span>
+      <h2 id="h-entrar">Entra a HorariosPR.</h2>
+      <p class="sub">Escoge dónde lo vas a usar.</p>
+    </div>
     <div class="doors">
       <a class="door main" id="tel" href="movil.html"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span><span><b>Mi horario en el teléfono</b><span>Para empleados: tus turnos, con quién trabajas y el horario del local.</span></span><svg class="i go" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
-      <a class="door" id="pc" href="escritorio/" data-escritorio><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span><span><b>Armar y publicar el horario (computadora)</b><span>Para gerentes y dueños: arma, revisa y publica.</span></span><svg class="i go" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
-      <a class="door demo" id="demo" href="escritorio/?demo" data-escritorio><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></span><span><b>Ver la demostración</b><span>Una farmacia de ejemplo. Nada se guarda.</span></span><svg class="i go" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      <a class="door acc k-azul" id="pc" href="escritorio/" data-escritorio><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span><span><b>Armar y publicar el horario (computadora)</b><span>Para gerentes y dueños: arma, revisa y publica.</span></span><svg class="i go" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      <a class="door demo acc k-morado" id="demo" href="escritorio/?demo" data-escritorio><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></span><span><b>Ver la demostración</b><span>Una farmacia de ejemplo. Nada se guarda.</span></span><svg class="i go" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
     </div>
-    <p class="nuevo">¿Todavía no usas HorariosPR? <a href="mailto:HorariosPR@gmail.com?subject=HorariosPR%20%E2%80%93%20coordinar%20una%20reuni%C3%B3n">Escríbenos para coordinar una reunión</a>.</p>
+    <p class="nuevo">¿Todavía no usas HorariosPR? <a href="#reunion">Coordina tu reunión</a>.</p>
   </div>
 </section>
 
@@ -364,5 +605,66 @@
     <p class="legal">HorariosPR es un servicio de MSBI Group LLC. Valida el horario según las reglas del patrono; no sustituye la nómina ni la asesoría legal.</p>
   </div>
 </footer>
+
+<script>
+/* Movimiento suave. Si algo falla aquí, la página se queda quieta y completa (sin html.anim nada se esconde). */
+(function () {
+  var raiz = document.documentElement;
+  try {
+    if (!('IntersectionObserver' in window) || !window.matchMedia || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    raiz.classList.add('anim');
+
+    // Las secciones aparecen al bajar
+    var ver = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('vis'); ver.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    Array.prototype.forEach.call(document.querySelectorAll('.rv'), function (el) { ver.observe(el); });
+
+    // Las horas del teléfono cuentan hasta 32 cuando se ven
+    var horas = document.getElementById('horas');
+    if (horas) {
+      var fin = parseInt(horas.textContent, 10) || 0;
+      var contar = new IntersectionObserver(function (es) {
+        if (!es[0].isIntersecting) return;
+        contar.disconnect();
+        var t0 = null;
+        horas.textContent = '0 h';
+        var paso = function (t) {
+          if (t0 === null) t0 = t;
+          var k = Math.min(1, (t - t0) / 1100);
+          horas.textContent = Math.round(fin * (1 - Math.pow(1 - k, 3))) + ' h';
+          if (k < 1) requestAnimationFrame(paso);
+        };
+        requestAnimationFrame(paso);
+      }, { threshold: 0.5 });
+      contar.observe(horas);
+    }
+
+    // El jueves: E está enfermo/a y F cubre; vuelve y se repite mientras se ve
+    var bandeja = document.getElementById('bandeja');
+    if (bandeja) {
+      var reloj = [], visible = false, girando = false;
+      var limpiar = function () { reloj.forEach(clearTimeout); reloj = []; bandeja.classList.remove('enfermo', 'cubre'); girando = false; };
+      var vuelta = function () {
+        if (!visible || document.hidden) { girando = false; return; }
+        girando = true;
+        reloj = [];
+        reloj.push(setTimeout(function () { bandeja.classList.add('enfermo'); }, 2600));
+        reloj.push(setTimeout(function () { bandeja.classList.remove('enfermo'); bandeja.classList.add('cubre'); }, 4400));
+        reloj.push(setTimeout(function () { bandeja.classList.remove('cubre'); }, 8200));
+        reloj.push(setTimeout(vuelta, 9400));
+      };
+      new IntersectionObserver(function (es) {
+        visible = es[0].isIntersecting;
+        if (visible && !girando) vuelta();
+        if (!visible) limpiar();
+      }, { threshold: 0.4 }).observe(bandeja);
+      document.addEventListener('visibilitychange', function () { if (document.hidden) limpiar(); else if (visible && !girando) vuelta(); });
+    }
+  } catch (err) {
+    raiz.classList.remove('anim');
+  }
+})();
+</script>
 </body>
 </html>
