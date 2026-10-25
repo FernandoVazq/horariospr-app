@@ -1,7 +1,7 @@
 <!doctype html>
 <!-- La portada del sitio (dist-sitio/index.html). La copia scripts/sitio.mjs; sin --con-escritorio quita cada línea que lleve la marca de escritorio. -->
 <!-- Por eso cada enlace a escritorio/ va entero en UNA línea, y la página se ve bien sin ellos. Nada se carga de fuera (GitHub Pages, sin cabeceras). -->
-<!-- Todos los nombres del dibujo son inventados (Empresa del Ejemplo, Empleado A…F). Nunca datos de clientes. -->
+<!-- Todos los nombres del dibujo son inventados (Negocio del Ejemplo, Empleado A…F). Nunca datos de clientes. -->
 <!-- Cada promesa sale de lo que la app hace hoy. Lo planificado lleva la etiqueta "Próximamente" (ORDENES 9, 11 y 13). -->
 <!-- Movimiento: solo si corre el JavaScript del final y el sistema no pide menos movimiento (html.anim). Sin JS, todo se ve quieto. -->
 <html lang="es-PR">
@@ -24,12 +24,12 @@
 <meta property="og:image" content="https://fernandovazq.github.io/horariospr-app/media/horariospr-poster.jpg">
 <meta property="og:image:width" content="1280">
 <meta property="og:image:height" content="720">
-<meta property="og:image:alt" content="El horario del mes de una empresa de ejemplo en HorariosPR, con cada empleado como una cápsula de color">
+<meta property="og:image:alt" content="El horario del mes de un negocio de ejemplo en HorariosPR, con cada empleado como una cápsula de color">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="HorariosPR · Horarios de turnos para tu negocio en Puerto Rico">
 <meta name="twitter:description" content="HorariosPR arma y revisa el horario de turnos de tu negocio en Puerto Rico: farmacias, restaurantes, tiendas, clínicas y más. Cada empleado lo ve en su teléfono.">
 <meta name="twitter:image" content="https://fernandovazq.github.io/horariospr-app/media/horariospr-poster.jpg">
-<meta name="twitter:image:alt" content="El horario del mes de una empresa de ejemplo en HorariosPR">
+<meta name="twitter:image:alt" content="El horario del mes de un negocio de ejemplo en HorariosPR">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -492,10 +492,10 @@
     </div>
 
     <figure class="shot">
-      <figcaption class="sr">Dibujo de ejemplo con datos inventados: la semana de la Empresa del Ejemplo, con cada empleado como una cápsula en su turno de mañana o de tarde; una nota que dice que el horario cumple con la cobertura completa, el tope de horas y los días seguidos; y un teléfono con los turnos de la semana del Empleado A.</figcaption>
+      <figcaption class="sr">Dibujo de ejemplo con datos inventados: la semana del Negocio del Ejemplo, con cada empleado como una cápsula en su turno de mañana o de tarde; una nota que dice que el horario cumple con la cobertura completa, el tope de horas y los días seguidos; y un teléfono con los turnos de la semana del Empleado A.</figcaption>
       <div class="tray" id="bandeja" aria-hidden="true">
         <span class="aviso"><i></i><span class="a">Jue 5: E está enfermo/a</span><span class="b">F puede cubrir sin romper reglas</span></span>
-        <div class="tray-h"><b>Empresa del Ejemplo</b><span>Semana del 2 al 8</span></div>
+        <div class="tray-h"><b>Negocio del Ejemplo</b><span>Semana del 2 al 8</span></div>
         <div class="days">
           <div class="day"><div class="dn">Lun<span>2</span></div><div class="cell am"><span class="cp A">A</span><span class="cp B">B</span></div><div class="cell pm"><span class="cp C">C</span><span class="cp D">D</span></div></div>
           <div class="day"><div class="dn">Mar<span>3</span></div><div class="cell am"><span class="cp A">A</span><span class="cp E">E</span></div><div class="cell pm"><span class="cp F">F</span><span class="cp C">C</span></div></div>
@@ -546,7 +546,7 @@
         <source src="media/horariospr.mp4?v=2" type="video/mp4">
       </video>
       <button type="button" class="sonido" id="sonido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg>Verlo con música</button>
-      <p id="vid-txt" class="sr">Video de un minuto con la Empresa del Ejemplo (datos inventados): el mes con problemas marcados, Crear horario, la vista previa y el mes cumpliendo las 15 reglas; las horas de cada persona y la pantalla de Reglas.</p>
+      <p id="vid-txt" class="sr">Video de un minuto con el Negocio del Ejemplo (datos inventados): el mes con problemas marcados, Crear horario, la vista previa y el mes cumpliendo las 15 reglas; las horas de cada persona y la pantalla de Reglas.</p>
     </div>
   </div>
 </section>
@@ -606,7 +606,7 @@
       <figcaption class="sr">Dibujo de ejemplo con datos inventados: el teléfono del Empleado B con sus cuatro turnos de la semana, 32 horas, con quién trabaja en cada uno y los dos días en que le toca encargarse.</figcaption>
       <div class="movil" aria-hidden="true">
         <div class="screen">
-          <div class="scr-h"><b>Mi horario</b><span>Empleado B · Empresa del Ejemplo</span></div>
+          <div class="scr-h"><b>Mi horario</b><span>Empleado B · Negocio del Ejemplo</span></div>
           <div class="tabs"><span class="on">Mi horario</span><span>Todos</span></div>
           <div class="sum"><b id="horas">32 h</b><span>esta semana · 4 turnos</span></div>
           <div class="mt">
@@ -744,7 +744,7 @@
     <div class="doors">
       <a class="door main" id="tel" href="movil.html"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span><span><b>Mi horario en el teléfono</b><span>Para empleados: tus turnos.</span></span><svg class="i go" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
       <a class="door acc k-azul" id="pc" href="escritorio/" data-escritorio><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span><span><b>Armar y publicar el horario (computadora)</b><span>Para gerentes y dueños.</span></span><svg class="i go" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
-      <a class="door demo acc k-morado" id="demo" href="escritorio/?demo" data-escritorio><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></span><span><b>Ver la demostración</b><span>Una empresa de ejemplo. Nada se guarda.</span></span><svg class="i go" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      <a class="door demo acc k-morado" id="demo" href="escritorio/?demo" data-escritorio><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></span><span><b>Ver la demostración</b><span>Un negocio de ejemplo. Nada se guarda.</span></span><svg class="i go" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
     </div>
     <p class="nuevo">¿Todavía no usas HorariosPR? <a href="#reunion">Coordina tu reunión</a>.</p>
   </div>
